@@ -9,34 +9,59 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { BsFillHeartFill } from "react-icons/bs";
+import { BsHeart } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { getSingleData } from "../Redux/SingleProduct/single.actions";
 
-function SingleProduct({ image, price1, price2, off, title, brand, launched }) {
+function SingleProduct({
+  image,
+  price1,
+  price2,
+  off,
+  title,
+  brand,
+  launched,
+  _id,
+}) {
+  const route = useSelector((state) => state?.button?.route);
+  const dispatch = useDispatch();
+
+  const { router, ids } = useParams();
+
+  const handleGO = (route, _id) => {
+    dispatch(getSingleData(route, _id));
+  };
+
   return (
     <VStack alignItems={"start"} position="relative">
-      <Box overflow={"hidden"} borderRadius={"2px"}>
-        <Image
-          src={image}
-          _hover={{
-            transform: "scale(1.1)",
-            transformOrigin: "50% 50%",
-            cursor: "pointer",
-            opacity: ".9",
-          }}
-          transition="transform .5s"
-        />
-      </Box>
+      <Link to="/single">
+        <Box
+          overflow={"hidden"}
+          borderRadius={"2px"}
+          onClick={() => handleGO(route, _id)}
+        >
+          <Image
+            src={image}
+            _hover={{
+              transform: "scale(1.1)",
+              transformOrigin: "50% 50%",
+              cursor: "pointer",
+              opacity: ".9",
+            }}
+            transition="transform .5s"
+          />
+        </Box>
+      </Link>
+
       <Box
         position="absolute"
         top="1%"
         right="3%"
-        _hover={{ cursor: "pointer", color: "blue" }}
+        color="rgb(255, 50, 120)"
+        _hover={{ cursor: "pointer", color: "red" }}
       >
-        <BsFillHeartFill
-          fontSize={"32px"}
-          color="rgb(255, 50, 120)"
-          _hover={{ color: "blue" }}
-        />
+        <BsHeart fontSize={"27px"} />
       </Box>
       <Box
         position={"absolute"}
@@ -55,9 +80,9 @@ function SingleProduct({ image, price1, price2, off, title, brand, launched }) {
       </Text>
       <Heading
         color="rgb(38, 38, 38)"
-        fontSize={"14px"}
+        fontSize={"12px"}
         letterSpacing=".2px"
-        fontWeight="500"
+        fontWeight="400"
         display={{ base: "none", md: "flex" }}
       >
         {title}

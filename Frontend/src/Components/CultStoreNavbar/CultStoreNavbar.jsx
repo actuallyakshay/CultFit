@@ -29,6 +29,7 @@ import UserLogin from "./UserLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../Redux/GetData/getData.actions";
 import { getButton } from "../../Redux/ButtonRoute/button.action";
+import { useParams } from "react-router-dom";
 
 export default function CultStoreNavbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -65,12 +66,14 @@ export default function CultStoreNavbar() {
           justify={{ base: "center", md: "start" }}
           align={"center"}
         >
-          <Box>
-            <Image
-              w="120px"
-              src="https://i.ibb.co/10DhWcm/Screenshot-2022-11-08-163641-removebg-preview.png"
-            />
-          </Box>
+          <Link href="/">
+            <Box>
+              <Image
+                w="120px"
+                src="https://i.ibb.co/10DhWcm/Screenshot-2022-11-08-163641-removebg-preview.png"
+              />
+            </Box>
+          </Link>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
@@ -83,8 +86,9 @@ export default function CultStoreNavbar() {
             fontSize={"sm"}
             fontWeight={200}
             variant={"link"}
-            href={"#"}
+            // href={"/"}
             color="black"
+            // border='3px solid red'
           >
             <BsCart fontSize={"30px"} />
           </Button>
@@ -102,6 +106,7 @@ const DesktopNav = () => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", " #262626");
+  const { page } = useParams();
 
   return (
     <Stack direction={"row"} spacing={4}>
@@ -114,7 +119,8 @@ const DesktopNav = () => {
                 fontSize="13px"
                 p={2}
                 color="#262626"
-                href={navItem.href ?? "#"}
+                // href={navItem.href ?? "/"}
+                href={navItem.href ?? "/"}
                 _hover={{
                   textDecoration: "none",
                   color: linkHoverColor,
@@ -150,8 +156,8 @@ const DesktopNav = () => {
 
 const DesktopSubNav = ({ label, href, subLabel, route }) => {
   const dispatch = useDispatch();
-
   const handleRoute = (route) => {
+    console.log("object");
     dispatch(getData(route));
     dispatch(getButton(route));
   };
@@ -159,6 +165,7 @@ const DesktopSubNav = ({ label, href, subLabel, route }) => {
   return (
     <Link
       href={href}
+      target="_top"
       role={"group"}
       display={"block"}
       p={2}
@@ -209,7 +216,7 @@ const MobileNav = () => {
   );
 };
 
-const MobileNavItem = ({ label, children, href }) => {
+const MobileNavItem = ({ label, children, href, route }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -291,7 +298,7 @@ const NAV_ITEMS = [
     children: [
       {
         label: "Apparel",
-        href: "#",
+        href: "/men",
         route: "mens",
       },
       {

@@ -9,13 +9,19 @@ import {
   Link,
   Text,
   VStack,
+  Input,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CommanButton from "../../Organism/CommanButton";
 import SortByPrice from "../../Organism/FilterByPrice";
-import SingleProduct from "../../Organism/SingleProduct";
+import FilterByPriceOff from "../../Organism/FilterByPriceOff";
+import SingleProduct from "../../Organism/SingleComponent";
+import SortByDiscount from "../../Organism/SortByDiscount";
 import { getData } from "../../Redux/GetData/getData.actions";
+import { BsSearch } from "react-icons/bs";
+import InputSearchSingleData from "../../Organism/InputSearchSingleData";
+import { getInputData } from "../../Redux/Throttling/t.actions";
 
 function AllProducts() {
   const data = useSelector((state) => state?.getData?.data);
@@ -23,15 +29,28 @@ function AllProducts() {
   const route = useSelector((state) => state?.button?.route);
   const [temp, setTemp] = useState([]);
   const dispatch = useDispatch();
-  const [par, setPar] = useState("");
+  // const [par, setPar] = useState("");
+  const [value, setValue] = useState("");
+  const [input, setInput] = useState([]);
+  const [height, setHeight] = useState(66);
+  const INPUT = useSelector((state) => state.inputData.inputData);
+  const inputLoading = useSelector((state) => state.inputData.inputLoading);
 
   useEffect(() => {
     setTemp(data);
   }, [data]);
 
+  useEffect(() => {
+    if (value == "") {
+      setInput([]);
+    } else {
+      setInput(INPUT);
+    }
+  }, [INPUT]);
+
   const handleFilter = (el) => {
     dispatch(getData(route, el));
-    setPar(el);
+    // setPar(el);
   };
 
   const handleGet = (el) => {
@@ -52,8 +71,8 @@ function AllProducts() {
     );
   };
 
-  const handleHL = ()=>{
-     const validate1 = temp?.map((elem) => {
+  const handleHL = () => {
+    const validate1 = temp?.map((elem) => {
       return { ...elem };
     });
     setTemp(
@@ -64,57 +83,110 @@ function AllProducts() {
         );
       })
     );
-  }
+  };
 
-  
-  const hanldeOff = () => {
-    const validate = data?.filter((elem) => {
-      if (Number(elem.off.substring(0, 2)) < 30) {
-        return elem;
-      }
-    });
-    console.log("validate", validate);
+  const handleDiscountSort = (asc) => {
+    dispatch(getData(route, "", "", asc));
+    setTemp(data);
+  };
+
+  const hanldeOff = (off) => {
+    console.log(off);
+    dispatch(getData(route, "", off));
+    setTemp(data);
+  };
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    dispatch(getInputData(route, value));
   };
 
   return isLoading ? (
     <Heading>....Loading</Heading>
   ) : (
     <>
-      <Flex
+      {route == "" ? <Heading>Mnoj njijjijdenfiuej</Heading> : ""}
+      {/* <Flex> */}
+      {/* <Text fontSize={"13px"} letterSpacing=".8px" as="samp">
+          {" "}
+          <span
+            style={{
+              color: "gray",
+              fontSize: "13px",
+              letterSpacing: ".8px",
+            }}
+          >
+            Home
+          </span>{" "}
+          <Link onClick={() => handleGet(route)}>
+            {route != "" ? `- ${route}` : ""}
+          </Link>
+          <span style={{ fontSize: "12px", letterSpacing: ".8px" }}>
+            {" "}
+            {par != "" ? `- ${par}` : ""}
+          </span>
+        </Text>
+      </Flex> */}
+      <Grid
+        gridTemplateColumns={"repeat(2,1fr)"}
         // border="2px solid red"
         w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
         m="auto"
         fontFamily={"sans-serif"}
-        justifyContent={"space-between"}
+        // justifyContent={"space-between"}
         alignItems="center"
+        gap="5"
+        display={route == "" ? "none" : "grid"}
       >
-        <Flex>
-          <Text fontSize={"13px"} letterSpacing=".8px" as="samp">
-            {" "}
-            <span
-              style={{ color: "gray", fontSize: "13px", letterSpacing: ".8px" }}
-            >
-              Home
-            </span>{" "}
-            <Link onClick={() => handleGet(route)}>
-              {route != "" ? `- ${route}` : ""}
-            </Link>
-            <span style={{ fontSize: "12px", letterSpacing: ".8px" }}>
-              {" "}
-              {par != "" ? `- ${par}` : ""}
-            </span>
-          </Text>
+        <Flex
+          border="1px solid gray"
+          flexDirection="column"
+          position="relative"
+          borderRadius="8px"
+        >
+          <Flex position="relative" alignItems="center" borderRadius="10px">
+            <Input
+              value={value}
+              type="text"
+              placeholder="enter query here"
+              outline="none"
+              border="none"
+              flex="1"
+              letterSpacing=".4px"
+              fontSize="19px"
+              focusBorderColor="none"
+              _placeholder={{
+                opacity: 0.4,
+                color: "gray",
+                letterSpacing: "0",
+              }}
+              onChange={(e) => handleChange(e)}
+            />
+            <Box pr="10px">
+              <BsSearch fontSize="20px" color="rgb(255, 50, 120)" />
+            </Box>
+          </Flex>
+          {inputLoading ? (
+            <Heading> ...... loading</Heading>
+          ) : (
+            <InputSearchSingleData
+              input={input}
+              value={value}
+              height={height}
+            />
+          )}
         </Flex>
         <Flex
-          // border="2px solid blue"
+          // border="2px solid red"
           justifyContent={"space-between"}
           alignItems="center"
+          gap="2"
         >
-          {/* <InputSearch /> */}
-          <Button onClick={hanldeOff}>More then 40</Button>
+          <FilterByPriceOff hanldeOff={hanldeOff} />
+          <SortByDiscount handleDiscountSort={handleDiscountSort} />
           <SortByPrice handleLH={handleLH} handleHL={handleHL} />
         </Flex>
-      </Flex>
+      </Grid>
       <br />
       {route == "topSellings" ? (
         <CommanButton array={bestSellings} handleFilter={handleFilter} />

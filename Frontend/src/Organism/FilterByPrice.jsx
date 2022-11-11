@@ -20,30 +20,34 @@ function SortByPrice({ handleLH, handleHL }) {
       <MenuButton
         as={Button}
         rightIcon={<BsArrowsExpand />}
-        border="1px solid #A9A9A9"
+        variant="outline"
         bgColor="white"
         _hover={{ bgColor: "rgb(255, 50, 120)", color: "white" }}
         fontSize="15px"
         fontWeight={"600"}
         letterSpacing={".5px"}
+        size="sm"
+        py="4"
       >
         Sort by Price
       </MenuButton>
-      <MenuList>
+      <MenuList minWidth="fit-content">
         <MenuItem
-          minH="48px"
+          w="fit-content"
           gap={"2"}
           _hover={{ bgColor: "rgb(255, 50, 120)", color: "white" }}
           onClick={handleHL}
+          fontSize="14px"
         >
           <FcMoneyTransfer />
           <span>Price: High to low</span>
         </MenuItem>
         <MenuItem
-          minH="40px"
+          w="fit-content"
           gap={"2"}
           _hover={{ bgColor: "rgb(255, 50, 120)", color: "white" }}
           onClick={handleLH}
+          fontSize="14px"
         >
           <FcMoneyTransfer />
           <span>Price Low to high</span>
