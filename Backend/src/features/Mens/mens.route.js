@@ -5,7 +5,7 @@ const Men = require("./mens.model");
 const app = express.Router();
 
 app.get("", async (req, res) => {
-  const { page, limit, q , off , disSort, input} = req.query;
+  const { page, limit, q, off, disSort, input, _pSort } = req.query;
   try {
     if (q) {
       let temp = new RegExp(q, "i");
@@ -28,7 +28,9 @@ app.get("", async (req, res) => {
       res.send(validate);
     } else if (disSort) {
       if (disSort === "desc") {
-        let products = await Men.find();
+        let products = await Men.find()
+          .skip((page - 1) * limit)
+          .limit(limit);
         let validate = products?.sort((a, b) => {
           return (
             Number(b?.off?.substring(0, 2)) - Number(a?.off?.substring(0, 2))
@@ -36,7 +38,9 @@ app.get("", async (req, res) => {
         });
         res.send(validate);
       } else if (disSort === "asc") {
-        let products = await Men.find();
+        let products = await Men.find()
+          .skip((page - 1) * limit)
+          .limit(limit);
         let validate = products?.sort((a, b) => {
           return (
             Number(a?.off?.trim().substring(0, 2)) -
@@ -47,8 +51,32 @@ app.get("", async (req, res) => {
       }
     } else if (input) {
       let temp = new RegExp(input, "i");
-      let validate = await Men.find({ title: temp })
+      let validate = await Men.find({ title: temp });
       res.send(validate);
+    } else if (_pSort) {
+      if (_pSort === "desc") {
+        let products = await Men.find()
+          .skip((page - 1) * limit)
+          .limit(limit);
+        let validate = products?.sort((a, b) => {
+          return Number(
+            b?.price1.trim().substring(2) -
+              Number(a?.price1.trim().substring(2))
+          );
+        });
+        res.send(validate);
+      } else if (_pSort === "asc") {
+        let products = await Men.find()
+          .skip((page - 1) * limit)
+          .limit(limit);
+        let validate = products?.sort((a, b) => {
+          return Number(
+            a?.price1.trim().substring(2) -
+              Number(b?.price1.trim().substring(2))
+          );
+        });
+        res.send(validate);
+      }
     } else {
       let products = await Men.find()
         .skip((page - 1) * limit)
@@ -60,7 +88,6 @@ app.get("", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
-
 
 app.get("/:id", async (req, res) => {
   try {

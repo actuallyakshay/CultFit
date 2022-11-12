@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/react";
 import { BiUserCircle } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
-import { SiFacebook } from "react-icons/si";
+import { AiOutlineMail } from "react-icons/ai";
 
 function UserLogin() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -114,7 +114,10 @@ function UserLogin() {
               <br />
               <HStack gap="2" py="3">
                 <FcGoogle fontSize={"28px"} />
-                <SiFacebook fontSize={"28px"} color="#4267B2" />
+                <AiOutlineMail
+                  fontSize={"28px"}
+                  color="rgba(255, 49, 109, 0.7)"
+                />
               </HStack>
               <br />
               <Flex textAlign={"center"}>

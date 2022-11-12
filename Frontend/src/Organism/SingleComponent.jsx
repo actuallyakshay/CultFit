@@ -7,12 +7,16 @@ import {
   HStack,
   Image,
   Text,
+  Toast,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
-import { BsHeart } from "react-icons/bs";
+import { BsCartPlusFill, BsHeart } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getSingleData } from "../Redux/SingleProduct/single.actions";
+import { SlClose } from "react-icons/sl";
+import styled from "styled-components";
 
 function SingleProduct({
   image,
@@ -26,20 +30,23 @@ function SingleProduct({
 }) {
   const route = useSelector((state) => state?.button?.route);
   const dispatch = useDispatch();
+  const toast = useToast();
 
-  const { router, ids } = useParams();
+  const { wish } = useParams();
 
   const handleGO = (route, _id) => {
     dispatch(getSingleData(route, _id));
   };
 
   return (
-    <VStack alignItems={"start"} position="relative">
-      <Link to="/single">
+    <StyledVStack alignItems={"start"} position="relative">
+      <Link to={route == "" ? "/" : `/${route}/${_id}`}>
         <Box
+          className="container"
           overflow={"hidden"}
           borderRadius={"2px"}
           onClick={() => handleGO(route, _id)}
+          position="relative"
         >
           <Image
             src={image}
@@ -51,18 +58,72 @@ function SingleProduct({
             }}
             transition="transform .5s"
           />
+          <Box
+            className="child"
+            bgColor="#fff0f4"
+            zIndex={10}
+            h="9vh"
+            w="full"
+            position="absolute"
+            bottom="0"
+            color=" #ff3e6c"
+          >
+            <HStack
+              justifyContent="center"
+              alignItems="center"
+              flexDirection={"row"}
+              pt="3"
+              gap="10"
+            >
+              <Heading fontSize={"15px"} letterSpacing='.8px' fontWeight="500" size="md">
+                ADD TO CART
+              </Heading>
+              <BsCartPlusFill fontSize={"25px"} color=" #ff3e6c" />
+            </HStack>
+          </Box>
         </Box>
       </Link>
 
-      <Box
-        position="absolute"
-        top="1%"
-        right="3%"
-        color="rgb(255, 50, 120)"
-        _hover={{ cursor: "pointer", color: "red" }}
-      >
-        <BsHeart fontSize={"27px"} />
-      </Box>
+      {wish !== undefined ? (
+        <Box
+          position="absolute"
+          top="0"
+          right="3%"
+          color="blackAlpha.600"
+          _hover={{ cursor: "pointer", color: "black" }}
+          onClick={() =>
+            toast({
+              duration: 2000,
+              title: `Removed form Wishlist`,
+              position: "top",
+              status: "success",
+              isClosable: true,
+            })
+          }
+        >
+          <SlClose fontSize={"27px"} />
+        </Box>
+      ) : (
+        <Box
+          position="absolute"
+          top="1%"
+          right="3%"
+          color="blackAlpha.600"
+          _hover={{ cursor: "pointer", color: "black" }}
+          onClick={() =>
+            toast({
+              duration: 2000,
+              title: `Added to Wishlist`,
+              position: "top",
+              status: "success",
+              isClosable: true,
+            })
+          }
+        >
+          <BsHeart fontSize={"27px"} />
+        </Box>
+      )}
+
       <Box
         position={"absolute"}
         bgColor={"rgb(227, 226, 252)"}
@@ -122,8 +183,18 @@ function SingleProduct({
           {off}
         </Heading>
       </Flex>
-    </VStack>
+    </StyledVStack>
   );
 }
 
 export default SingleProduct;
+
+const StyledVStack = styled(VStack)`
+  .child {
+    transform: translateY(100%);
+  }
+  .container:hover .child {
+    transition: transform 0.2s ease-in-out;
+    transform: translateY(0);
+  }
+`;

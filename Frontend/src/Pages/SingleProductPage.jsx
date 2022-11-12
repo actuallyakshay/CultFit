@@ -14,13 +14,17 @@ import ProductDetails from "./ProductDetails";
 import ReactImageMagnify from "react-image-magnify";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Loader from "../utils/Loader";
 
 function OneProductPage() {
   const sdata = useSelector((state) => state?.single?.singleData);
   const sLoading = useSelector((state) => state?.single?.singleLoading);
+  const route = useSelector((state) => state?.button?.route);
+
+  console.log({ route });
 
   return sLoading ? (
-    <Heading>.....Loading</Heading>
+    <Loader />
   ) : (
     <>
       <Grid

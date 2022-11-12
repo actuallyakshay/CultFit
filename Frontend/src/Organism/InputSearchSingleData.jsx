@@ -12,6 +12,7 @@ import {
 import React from "react";
 import { BsFillHeartFill } from "react-icons/bs";
 import { BsFillCartPlusFill } from "react-icons/bs";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 function InputSearchSingleData({ input, value, height }) {
   return (
@@ -25,7 +26,7 @@ function InputSearchSingleData({ input, value, height }) {
       top="100%"
       left="0"
       right="0"
-      _hover={{cursor:'pointer'}}
+      _hover={{ cursor: "pointer" }}
       // borderRadius="15px"
       // display={h == }
     >
@@ -57,7 +58,7 @@ function InputSearchSingleData({ input, value, height }) {
                 transition="transform .5s"
               />
             </Box>
-            <VStack alignItems="start" pt="2" >
+            <VStack alignItems="start" pt="2">
               <Text
                 color="rgba(0, 0, 0, 0.6)"
                 fontSize={"15px"}
@@ -67,9 +68,9 @@ function InputSearchSingleData({ input, value, height }) {
               </Text>
               <Heading
                 color="rgb(38, 38, 38)"
-                fontSize={"14px"}
+                fontSize={"12px"}
                 letterSpacing=".2px"
-                fontWeight="500"
+                fontWeight="400"
                 display={{ base: "none", md: "flex" }}
               >
                 {elem.title}
@@ -77,7 +78,7 @@ function InputSearchSingleData({ input, value, height }) {
               <HStack gap="4">
                 <Heading
                   color="rgb(38, 38, 38)"
-                  fontSize={"17px"}
+                  fontSize={"15px"}
                   letterSpacing=".2px"
                   fontWeight="500"
                 >
@@ -85,7 +86,7 @@ function InputSearchSingleData({ input, value, height }) {
                 </Heading>
                 <Heading
                   color="rgba(0, 0, 0, 0.6)"
-                  fontSize={"17px"}
+                  fontSize={"15px"}
                   letterSpacing=".2px"
                   fontWeight="400"
                   as="s"
@@ -101,6 +102,13 @@ function InputSearchSingleData({ input, value, height }) {
                 >
                   {elem.off}
                 </Heading>
+              </HStack>
+              <HStack>
+                <CiDeliveryTruck color="rgb(255, 50, 120)" />
+                <Text fontSize={"12px"} as="i" fontWeight={"500"}>
+                  EXPRESS
+                </Text>{" "}
+                <span style={{ fontSize: "12px" }}>Delivery in 2 days</span>
               </HStack>
             </VStack>
             <VStack pt="5" gap="3">

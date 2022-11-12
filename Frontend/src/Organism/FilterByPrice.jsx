@@ -36,7 +36,7 @@ function SortByPrice({ handleLH, handleHL }) {
           w="fit-content"
           gap={"2"}
           _hover={{ bgColor: "rgb(255, 50, 120)", color: "white" }}
-          onClick={handleHL}
+          onClick={()=>handleHL("desc")}
           fontSize="14px"
         >
           <FcMoneyTransfer />
@@ -46,7 +46,7 @@ function SortByPrice({ handleLH, handleHL }) {
           w="fit-content"
           gap={"2"}
           _hover={{ bgColor: "rgb(255, 50, 120)", color: "white" }}
-          onClick={handleLH}
+          onClick={()=>handleLH("asc")}
           fontSize="14px"
         >
           <FcMoneyTransfer />

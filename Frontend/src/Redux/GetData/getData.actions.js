@@ -6,12 +6,12 @@ import {
 import axios from "axios";
 
 export const getData =
-  (route, q = "", off = "", sort = "") =>
+  (route, q = "", off = "", sort = "", _pSort = "") =>
   (dispatch) => {
     dispatch({ type: GETDATA_LOADING });
     axios
       .get(
-        `http://localhost:8080/${route}?q=${q}&off=${off}&disSort=${sort}&page=1&limit=32`
+        `http://localhost:8080/${route}?q=${q}&off=${off}&disSort=${sort}&_pSort=${_pSort}&page=1&limit=32`
       )
       .then((res) => dispatch({ type: GETDATA_SUCCESS, payload: res.data }))
       .catch((error) => dispatch({ type: GETDATA_ERROR }));
