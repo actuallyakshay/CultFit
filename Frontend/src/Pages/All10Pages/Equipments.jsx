@@ -42,49 +42,43 @@ function Equipments() {
   const INPUT = useSelector((state) => state.inputData.inputData);
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
 
-  useEffect(() => {
-    dispatch(getData(a));
-    dispatch(getButton(a));
-  }, []);
+   useEffect(() => {
+     dispatch(getData("equipments"));
+     dispatch(getButton("equipments"));
+   }, []);
 
-  useEffect(() => {
-    if (value == "") {
-      setInput([]);
-    } else {
-      setInput(INPUT);
-    }
-  }, [INPUT]);
+   useEffect(() => {
+     if (value == "") {
+       setInput([]);
+     } else {
+       setInput(INPUT);
+     }
+   }, [INPUT]);
 
-  const handleFilter = (el) => {
-    dispatch(getData(a, el));
-  };
+   const handleFilter = (el) => {
+     dispatch(getData("equipments", el));
+   };
 
-  const handleGet = (el) => {
-    dispatch(getData(el));
-  };
+   const handleLH = (asc) => {
+     dispatch(getData("equipments", "", asc));
+   };
 
-  const handleLH = (asc) => {
-    dispatch(getData(a, "", "", "", asc));
-  };
+   const handleHL = (desc) => {
+     dispatch(getData("equipments", "", desc));
+   };
 
-  const handleHL = (desc) => {
-    dispatch(getData(a, "", "", "", desc));
-  };
+   const handleDiscountSort = (asc) => {
+     dispatch(getData("equipments", "", "", asc));
+   };
 
-  const handleDiscountSort = (asc) => {
-    dispatch(getData(a, "", "", asc));
-  };
+   const hanldeOff = (off) => {
+     dispatch(getData("equipments", "", "", "", off));
+   };
 
-  const hanldeOff = (off) => {
-    console.log(off);
-    dispatch(getData(a, "", off));
-  };
-
-  const handleChange = (e) => {
-    setValue(e.target.value);
-    dispatch(getInputData(a, value));
-  };
-
+   const handleChange = (e) => {
+     setValue(e.target.value);
+     dispatch(getInputData("equipments", value));
+   };
   return isLoading ? (
     <Loader />
   ) : (

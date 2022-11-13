@@ -41,10 +41,9 @@ function Cardio() {
   const [height, setHeight] = useState(66);
   const INPUT = useSelector((state) => state.inputData.inputData);
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
-
   useEffect(() => {
-    dispatch(getData(a));
-    dispatch(getButton(a));
+    dispatch(getData("cardio"));
+    dispatch(getButton("cardio"));
   }, []);
 
   useEffect(() => {
@@ -56,35 +55,29 @@ function Cardio() {
   }, [INPUT]);
 
   const handleFilter = (el) => {
-    dispatch(getData(a, el));
-  };
-
-  const handleGet = (el) => {
-    dispatch(getData(el));
+    dispatch(getData("cardio", el));
   };
 
   const handleLH = (asc) => {
-    dispatch(getData(a, "", "", "", asc));
+    dispatch(getData("cardio", "", asc));
   };
 
   const handleHL = (desc) => {
-    dispatch(getData(a, "", "", "", desc));
+    dispatch(getData("cardio", "", desc));
   };
 
   const handleDiscountSort = (asc) => {
-    dispatch(getData(a, "", "", asc));
+    dispatch(getData("cardio", "", "", asc));
   };
 
   const hanldeOff = (off) => {
-    console.log(off);
-    dispatch(getData(a, "", off));
+    dispatch(getData("cardio", "", "", "", off));
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    dispatch(getInputData(a, value));
+    dispatch(getInputData("cardio", value));
   };
-
   return isLoading ? (
   <Loader />
   ) : (

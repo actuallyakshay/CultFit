@@ -41,10 +41,9 @@ function BestSellers() {
   const [height, setHeight] = useState(66);
   const INPUT = useSelector((state) => state.inputData.inputData);
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
-
   useEffect(() => {
-    dispatch(getData(a));
-        dispatch(getButton(a));
+    dispatch(getData("topSellings"));
+    dispatch(getButton("topSellings"));
   }, []);
 
   useEffect(() => {
@@ -56,35 +55,31 @@ function BestSellers() {
   }, [INPUT]);
 
   const handleFilter = (el) => {
-    dispatch(getData(a, el));
-  };
-
-  const handleGet = (el) => {
-    dispatch(getData(el));
+    dispatch(getData("topSellings", el));
   };
 
   const handleLH = (asc) => {
-    dispatch(getData(a, "", "", "", asc));
+    dispatch(getData("topSellings", "", asc));
   };
 
   const handleHL = (desc) => {
-    dispatch(getData(a, "", "", "", desc));
+    dispatch(getData("topSellings", "", desc));
   };
 
   const handleDiscountSort = (asc) => {
-    dispatch(getData(a, "", "", asc));
+    dispatch(getData("topSellings", "", "", asc));
   };
 
   const hanldeOff = (off) => {
-    console.log(off);
-    dispatch(getData(a, "", off));
+    dispatch(getData("topSellings", "", "", "", off));
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    dispatch(getInputData(a, value));
+    dispatch(getInputData("topSellings", value));
   };
 
+  
   return isLoading ? (
     <Loader />
   ) : (

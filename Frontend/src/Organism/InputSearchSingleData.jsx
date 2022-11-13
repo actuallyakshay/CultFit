@@ -23,12 +23,11 @@ function InputSearchSingleData({ input, value, height }) {
       position="absolute"
       zIndex="2"
       bgColor="white"
-      top="100%"
+      top="101%"
       left="0"
+      w='full'
       right="0"
       _hover={{ cursor: "pointer" }}
-      // borderRadius="15px"
-      // display={h == }
     >
       {input?.map((elem) => {
         return (
@@ -42,8 +41,7 @@ function InputSearchSingleData({ input, value, height }) {
             h="22vh"
             w="500px"
             m="auto"
-            border="1px solid gray"
-            //   bgColor="pink.50"
+            border="1px solid 	#F0F0F0"
           >
             <Box overflow="hidden" w="fit-content">
               <Image
@@ -82,7 +80,7 @@ function InputSearchSingleData({ input, value, height }) {
                   letterSpacing=".2px"
                   fontWeight="500"
                 >
-                  {elem.price1}
+                  ₹ {elem.price1}
                 </Heading>
                 <Heading
                   color="rgba(0, 0, 0, 0.6)"
@@ -92,7 +90,7 @@ function InputSearchSingleData({ input, value, height }) {
                   as="s"
                 >
                   {" "}
-                  {elem.price2}
+                  ₹ {elem.price2}
                 </Heading>
                 <Heading
                   color=" rgb(255, 50, 120)"
@@ -100,7 +98,7 @@ function InputSearchSingleData({ input, value, height }) {
                   letterSpacing=".2px"
                   fontWeight="500"
                 >
-                  {elem.off}
+                  {elem.off}% off
                 </Heading>
               </HStack>
               <HStack>

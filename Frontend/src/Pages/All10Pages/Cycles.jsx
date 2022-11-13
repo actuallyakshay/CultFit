@@ -43,8 +43,8 @@ function Cycles() {
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
 
   useEffect(() => {
-      dispatch(getData(a));
-          dispatch(getButton(a));
+    dispatch(getData("cycles"));
+    dispatch(getButton("cycles"));
   }, []);
 
   useEffect(() => {
@@ -56,35 +56,29 @@ function Cycles() {
   }, [INPUT]);
 
   const handleFilter = (el) => {
-    dispatch(getData(a, el));
-  };
-
-  const handleGet = (el) => {
-    dispatch(getData(el));
+    dispatch(getData("cycles", el));
   };
 
   const handleLH = (asc) => {
-    dispatch(getData(a, "", "", "", asc));
+    dispatch(getData("cycles", "", asc));
   };
 
   const handleHL = (desc) => {
-    dispatch(getData(a, "", "", "", desc));
+    dispatch(getData("cycles", "", desc));
   };
 
   const handleDiscountSort = (asc) => {
-    dispatch(getData(a, "", "", asc));
+    dispatch(getData("cycles", "", "", asc));
   };
 
   const hanldeOff = (off) => {
-    console.log(off);
-    dispatch(getData(a, "", off));
+    dispatch(getData("cycles", "", "", "", off));
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    dispatch(getInputData(a, value));
+    dispatch(getInputData("cycles", value));
   };
-
   return isLoading ? (
     <Loader />
   ) : (

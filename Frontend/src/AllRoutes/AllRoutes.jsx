@@ -23,6 +23,7 @@ function AllRoutes() {
   return (
     <>
       <CultStoreNavbar />
+      <br />
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/mens" element={<Mens />}></Route>

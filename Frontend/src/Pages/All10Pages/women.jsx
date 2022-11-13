@@ -29,7 +29,7 @@ import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
 
 function Mens() {
-  const [a, setA] = useState("womens");
+  const [a, setA] = useState("wowomens");
   const data = useSelector((state) => state?.getData?.data);
   const isLoading = useSelector((state) => state?.getData?.isLoading);
   const route = useSelector((state) => state?.button?.route);
@@ -40,9 +40,11 @@ function Mens() {
   const INPUT = useSelector((state) => state.inputData.inputData);
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
 
+
+  
   useEffect(() => {
-    dispatch(getData(a));
-    dispatch(getButton(a));
+    dispatch(getData("womens"));
+    dispatch(getButton("womens"));
   }, []);
 
   useEffect(() => {
@@ -54,56 +56,30 @@ function Mens() {
   }, [INPUT]);
 
   const handleFilter = (el) => {
-    dispatch(getData(a, el));
+    dispatch(getData("womens", el));
   };
 
-  const handleGet = (el) => {
-    dispatch(getData(el));
+  const handleLH = (asc) => {
+    dispatch(getData("womens", "", asc));
   };
 
-  // const handleLH = () => {
-  //   const validate1 = data?.map((elem) => {
-  //     return { ...elem };
-  //   });
-  //   setTemp(
-  //     validate1?.sort((a, b) => {
-  //       return (
-  //         Number(a.price1.trim().substring(2)) -
-  //         Number(b.price1.trim().substring(2))
-  //       );
-  //     })
-  //   );
-  // };
-
-  // const handleHL = () => {
-  //   const validate1 = data?.map((elem) => {
-  //     return { ...elem };
-  //   });
-  //   setTemp(
-  //     validate1?.sort((a, b) => {
-  //       return (
-  //         Number(b.price1.trim().substring(2)) -
-  //         Number(a.price1.trim().substring(2))
-  //       );
-  //     })
-  //   );
-  // };
+  const handleHL = (desc) => {
+    dispatch(getData("womens", "", desc));
+  };
 
   const handleDiscountSort = (asc) => {
-    dispatch(getData(a, "", "", asc));
-    // setTemp(data);
+    dispatch(getData("womens", "", "", asc));
   };
 
   const hanldeOff = (off) => {
-    console.log(off);
-    dispatch(getData(a, "", off));
-    // setTemp(data);
+    dispatch(getData("womens", "", "", "", off));
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    dispatch(getInputData(a, value));
+    dispatch(getInputData("womens", value));
   };
+
 
   return isLoading ? (
     <Loader />

@@ -41,10 +41,9 @@ function NewArrivals() {
   const [height, setHeight] = useState(66);
   const INPUT = useSelector((state) => state.inputData.inputData);
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
-
   useEffect(() => {
-    dispatch(getData(a));
-    dispatch(getButton(a));
+    dispatch(getData("topArrivals"));
+    dispatch(getButton("topArrivals"));
   }, []);
 
   useEffect(() => {
@@ -56,35 +55,29 @@ function NewArrivals() {
   }, [INPUT]);
 
   const handleFilter = (el) => {
-    dispatch(getData(a, el));
-  };
-
-  const handleGet = (el) => {
-    dispatch(getData(el));
+    dispatch(getData("topArrivals", el));
   };
 
   const handleLH = (asc) => {
-    dispatch(getData(a, "", "", "", asc));
+    dispatch(getData("topArrivals", "", asc));
   };
 
   const handleHL = (desc) => {
-    dispatch(getData(a, "", "", "", desc));
+    dispatch(getData("topArrivals", "", desc));
   };
 
   const handleDiscountSort = (asc) => {
-    dispatch(getData(a, "", "", asc));
+    dispatch(getData("topArrivals", "", "", asc));
   };
 
   const hanldeOff = (off) => {
-    console.log(off);
-    dispatch(getData(a, "", off));
+    dispatch(getData("topArrivals", "", "", "", off));
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    dispatch(getInputData(a, value));
+    dispatch(getInputData("topArrivals", value));
   };
-
   return isLoading ? (
     <Loader />
   ) : (

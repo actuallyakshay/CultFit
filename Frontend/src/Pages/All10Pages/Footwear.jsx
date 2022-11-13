@@ -43,8 +43,8 @@ function Footwear() {
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
 
   useEffect(() => {
-    dispatch(getData(a));
-    dispatch(getButton(a));
+    dispatch(getData("footwears"));
+    dispatch(getButton("footwears"));
   }, []);
 
   useEffect(() => {
@@ -56,35 +56,29 @@ function Footwear() {
   }, [INPUT]);
 
   const handleFilter = (el) => {
-    dispatch(getData(a, el));
-  };
-
-  const handleGet = (el) => {
-    dispatch(getData(el));
+    dispatch(getData("footwears", el));
   };
 
   const handleLH = (asc) => {
-    dispatch(getData(a, "", "", "", asc));
+    dispatch(getData("footwears", "", asc));
   };
 
   const handleHL = (desc) => {
-    dispatch(getData(a, "", "", "", desc));
+    dispatch(getData("footwears", "", desc));
   };
 
   const handleDiscountSort = (asc) => {
-    dispatch(getData(a, "", "", asc));
+    dispatch(getData("footwears", "", "", asc));
   };
 
   const hanldeOff = (off) => {
-    console.log(off);
-    dispatch(getData(a, "", off));
+    dispatch(getData("footwears", "", "", "", off));
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    dispatch(getInputData(a, value));
+    dispatch(getInputData("footwears", value));
   };
-
   return isLoading ? (
     <Loader />
   ) : (

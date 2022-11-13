@@ -54,25 +54,25 @@ function FilterByPriceOff({ hanldeOff }) {
             w="full"
             gap={"2"}
             _hover={{ bgColor: "rgb(255, 50, 120)", color: "white" }}
-            onClick={() => hanldeOff([30, 45])}
+            onClick={() => hanldeOff([31, 45])}
           >
             <CiDiscount1 />
-            <span>off 30 to 45 %</span>
+            <span>off 31 to 45 %</span>
           </MenuItem>
           <MenuItem
             w="full"
             gap={"2"}
             _hover={{ bgColor: "rgb(255, 50, 120)", color: "white" }}
-            onClick={() => hanldeOff([45, 60])}
+            onClick={() => hanldeOff([46, 60])}
           >
             <CiDiscount1 />
-            <span>off 45 to 60 %</span>
+            <span>off 46 to 60 %</span>
           </MenuItem>
           <MenuItem
             w="full"
             gap={"2"}
             _hover={{ bgColor: "rgb(255, 50, 120)", color: "white" }}
-            onClick={() => hanldeOff([60, 99])}
+            onClick={() => hanldeOff([61, 99])}
           >
             <CiDiscount1 />
             <span>above 60 %</span>

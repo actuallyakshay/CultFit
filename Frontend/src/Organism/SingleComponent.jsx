@@ -75,7 +75,12 @@ function SingleProduct({
               pt="3"
               gap="10"
             >
-              <Heading fontSize={"15px"} letterSpacing='.8px' fontWeight="500" size="md">
+              <Heading
+                fontSize={"15px"}
+                letterSpacing=".8px"
+                fontWeight="500"
+                size="md"
+              >
                 ADD TO CART
               </Heading>
               <BsCartPlusFill fontSize={"25px"} color=" #ff3e6c" />
@@ -161,7 +166,7 @@ function SingleProduct({
             letterSpacing=".2px"
             fontWeight="500"
           >
-            {price1}
+            ₹ {price1}
           </Heading>
           <Heading
             color="rgba(0, 0, 0, 0.6)"
@@ -171,7 +176,7 @@ function SingleProduct({
             as="s"
           >
             {" "}
-            {price2}
+            ₹ {price2}
           </Heading>
         </Flex>
         <Heading
@@ -180,7 +185,7 @@ function SingleProduct({
           letterSpacing=".2px"
           fontWeight="500"
         >
-          {off}
+          {off}% off
         </Heading>
       </Flex>
     </StyledVStack>

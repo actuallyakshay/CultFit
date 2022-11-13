@@ -29,7 +29,6 @@ import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
 
 function Accessories() {
-  const [a, setA] = useState("accessories");
   const data = useSelector((state) => state?.getData?.data);
   const isLoading = useSelector((state) => state?.getData?.isLoading);
   const route = useSelector((state) => state?.button?.route);
@@ -41,10 +40,9 @@ function Accessories() {
   const [height, setHeight] = useState(66);
   const INPUT = useSelector((state) => state.inputData.inputData);
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
-
   useEffect(() => {
-    dispatch(getData(a));
-    dispatch(getButton(a));
+    dispatch(getData("accessories"));
+    dispatch(getButton("accessories"));
   }, []);
 
   useEffect(() => {
@@ -56,33 +54,28 @@ function Accessories() {
   }, [INPUT]);
 
   const handleFilter = (el) => {
-    dispatch(getData(a, el));
-  };
-
-  const handleGet = (el) => {
-    dispatch(getData(el));
+    dispatch(getData("accessories", el));
   };
 
   const handleLH = (asc) => {
-    dispatch(getData(a, "", "", "", asc));
+    dispatch(getData("accessories", "", asc));
   };
 
   const handleHL = (desc) => {
-    dispatch(getData(a, "", "", "", desc));
+    dispatch(getData("accessories", "", desc));
   };
 
   const handleDiscountSort = (asc) => {
-    dispatch(getData(a, "", "", asc));
+    dispatch(getData("accessories", "", "", asc));
   };
 
   const hanldeOff = (off) => {
-    console.log(off);
-    dispatch(getData(a, "", off));
+    dispatch(getData("accessories", "", "", "", off));
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    dispatch(getInputData(a, value));
+    dispatch(getInputData("accessories", value));
   };
 
   return isLoading ? (
@@ -146,7 +139,6 @@ function Accessories() {
           <FilterByPriceOff hanldeOff={hanldeOff} />
           <SortByDiscount handleDiscountSort={handleDiscountSort} />
           <SortByPrice handleLH={handleLH} handleHL={handleHL} />
-          {/* <SortByPrice /> */}
         </Flex>
       </Grid>
       <br />

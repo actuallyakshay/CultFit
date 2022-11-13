@@ -29,7 +29,7 @@ import UserLogin from "./UserLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../Redux/GetData/getData.actions";
 import { getButton } from "../../Redux/ButtonRoute/button.action";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function CultStoreNavbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -107,6 +107,13 @@ const DesktopNav = () => {
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", " #262626");
   const { page } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const hanldeNavigate = (el) => {
+    dispatch(getButton(el));
+    navigate(el);
+  };
 
   return (
     <Stack
@@ -118,7 +125,10 @@ const DesktopNav = () => {
       zIndex="3"
     >
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
+        <Box
+          key={navItem.label}
+          onClick={() => hanldeNavigate(navItem.route)}
+        >
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Link
@@ -126,8 +136,7 @@ const DesktopNav = () => {
                 fontSize="13px"
                 p={2}
                 color="#262626"
-                // href={navItem.href ?? "/"}
-                href={navItem.href ?? "/"}
+                href={navItem.href}
                 _hover={{
                   textDecoration: "none",
                   color: linkHoverColor,

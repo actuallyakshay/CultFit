@@ -29,7 +29,6 @@ import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
 
 function Mens() {
-  const [a, setA] = useState("mens");
   const data = useSelector((state) => state?.getData?.data);
   const isLoading = useSelector((state) => state?.getData?.isLoading);
   const dispatch = useDispatch();
@@ -42,8 +41,8 @@ function Mens() {
   // const route = useSelector((state) => state?.button?.route);
 
   useEffect(() => {
-    dispatch(getData(a));
-    dispatch(getButton(a));
+    dispatch(getData("mens"));
+    dispatch(getButton("mens"));
   }, []);
 
   useEffect(() => {
@@ -55,33 +54,28 @@ function Mens() {
   }, [INPUT]);
 
   const handleFilter = (el) => {
-    dispatch(getData(a, el));
-  };
-
-  const handleGet = (el) => {
-    dispatch(getData(el));
+    dispatch(getData("mens", el));
   };
 
   const handleLH = (asc) => {
-    dispatch(getData(a, "", "", "", asc));
+    dispatch(getData("mens", "", asc));
   };
 
   const handleHL = (desc) => {
-    dispatch(getData(a, "", "", "", desc));
+    dispatch(getData("mens", "", desc));
   };
 
   const handleDiscountSort = (asc) => {
-    dispatch(getData(a, "", "", asc));
+    dispatch(getData("mens", "", "", asc));
   };
 
   const hanldeOff = (off) => {
-    console.log(off);
-    dispatch(getData(a, "", off));
+    dispatch(getData("mens", "", "", "", off));
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    dispatch(getInputData(a, value));
+    dispatch(getInputData("mens", value));
   };
 
   return isLoading ? (
@@ -99,7 +93,7 @@ function Mens() {
         gap="5"
       >
         <Flex
-          border="1px solid gray"
+          border="1px solid 	#e7e7e7"
           flexDirection="column"
           position="relative"
           borderRadius="8px"
@@ -136,12 +130,7 @@ function Mens() {
             />
           )}
         </Flex>
-        <Flex
-          // border="2px solid red"
-          justifyContent={"space-between"}
-          alignItems="center"
-          gap="2"
-        >
+        <Flex justifyContent={"space-between"} alignItems="center" gap="2">
           <FilterByPriceOff hanldeOff={hanldeOff} />
           <SortByDiscount handleDiscountSort={handleDiscountSort} />
           <SortByPrice handleLH={handleLH} handleHL={handleHL} />
