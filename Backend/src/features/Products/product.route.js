@@ -91,8 +91,10 @@ app.get("", async (req, res) => {
 });
 
 app.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log({ id });
   try {
-    let Singleproduct = await Product.findById(req.params.id);
+    let Singleproduct = await Product.findById(id);
     res.send(Singleproduct);
   } catch (error) {
     res.status(400).send(error.message);

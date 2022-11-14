@@ -6,11 +6,17 @@ const cors = require("cors");
 const PORT = process.env.PORT;
 
 const productRoute = require("./features/Products/product.route");
+const cartRoute = require("./features/Cart/Cart.route");
+const userRoute = require("./features/Auth/Login.route")
+const wishlistRoute = require("./features/Wishlist/wishlist.route");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/products", productRoute);
+app.use("/cart", cartRoute);
+app.use("/user", userRoute)
+app.use("/wishlist", wishlistRoute)
 
 app.get("/", async (req, res) => {
   res.send("knergoineriufneriurje");

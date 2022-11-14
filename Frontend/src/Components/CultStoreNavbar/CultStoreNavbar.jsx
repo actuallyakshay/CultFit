@@ -17,6 +17,7 @@ import {
   useDisclosure,
   Image,
   HStack,
+  Tooltip,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -24,12 +25,16 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import { BsCart } from "react-icons/bs";
-import UserLogin from "./UserLogin";
+import { BsCart, BsHeart } from "react-icons/bs";
+import UserLogin from "../LoginPart/UserLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../Redux/GetData/getData.actions";
 import { getButton } from "../../Redux/ButtonRoute/button.action";
 import { useNavigate, useParams } from "react-router-dom";
+import { GoLocation } from "react-icons/go";
+import { GrLocationPin } from "react-icons/gr";
+import { MdLocationSearching } from "react-icons/md";
+import styled from "styled-components";
 
 export default function CultStoreNavbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -79,18 +84,23 @@ export default function CultStoreNavbar() {
             <DesktopNav />
           </Flex>
         </Flex>
-
-        <HStack flex={{ base: 1, md: 0 }} justify={"flex-end"} spacing={3}>
+        <HStack flex={{ base: 1, md: 0 }} justify={"flex-end"} spacing={1}>
+          <Tooltip hasArrow label={`Search places`} bg="gray.300" color="black">
+            <Button bg="none">
+              <GoLocation />
+            </Button>
+          </Tooltip>
+          <BsHeart />
           <UserLogin />
           <Button
             fontSize={"sm"}
             fontWeight={200}
             variant={"link"}
-            // href={"/"}
             color="black"
-            // border='3px solid red'
           >
-            <BsCart fontSize={"30px"} />
+            <Link href="/cart">
+              <BsCart fontSize={"20px"} />
+            </Link>
           </Button>
         </HStack>
       </Flex>
@@ -118,17 +128,14 @@ const DesktopNav = () => {
   return (
     <Stack
       direction={"row"}
-      spacing={4}
+      spacing={[3,1,1,2]}
       position="sticky"
       top="0"
       bgColor="white"
       zIndex="3"
     >
       {NAV_ITEMS.map((navItem) => (
-        <Box
-          key={navItem.label}
-          onClick={() => hanldeNavigate(navItem.route)}
-        >
+        <Box key={navItem.label} onClick={() => hanldeNavigate(navItem.route)}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Link
@@ -151,7 +158,7 @@ const DesktopNav = () => {
                 fontWeight="600"
                 fontSize="12px"
                 border={0}
-                boxShadow={"xl"}
+                boxShadow={"md"}
                 bg={popoverContentBgColor}
                 p={2}
                 w="fit-content"
@@ -575,3 +582,13 @@ const NAV_ITEMS = [
     route: "equipments",
   },
 ];
+
+const StyledBox = styled(Box)`
+  .child {
+    transform: translateY(100%);
+  }
+  .container:hover .child {
+    transition: transform 0.2s ease-in-out;
+    transform: translateY(0);
+  }
+`;

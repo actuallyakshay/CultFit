@@ -9,6 +9,7 @@ const productSchema = new mongoose.Schema(
     price2: Number,
     off: Number,
     category: String,
+    qty: Number,
   },
   {
     versionKey: false,

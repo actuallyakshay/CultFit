@@ -41,7 +41,7 @@ function UserLogin() {
         color="black"
         onClick={onOpen}
       >
-        <BiUserCircle fontSize={"35px"} />
+        <BiUserCircle fontSize={"24px"} />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

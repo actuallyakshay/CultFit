@@ -18,7 +18,7 @@ app.post("/login", async (req, res) => {
       if (temp.email === email) {
         if (temp.password === password) {
           res.send({
-            token: `${temp.name}:${temp.email}:${temp._id}:${temp.pinCode}`,
+            token: `${temp.name}:${temp.email}:${temp._id}:${temp.password}`,
           });
         } else {
           res.send("U have entered the wrong passwword");

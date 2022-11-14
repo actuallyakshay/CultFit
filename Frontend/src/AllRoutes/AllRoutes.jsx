@@ -18,6 +18,9 @@ import CultStoreNavbar from "../Components/CultStoreNavbar/CultStoreNavbar";
 import Footer from "../utils/Footer";
 import Wishlist from "../Organism/WishList&Cart/Wishlist";
 import Cart from "../Organism/WishList&Cart/Cart";
+import UserLogin from "../Components/LoginPart/UserLogin";
+import SignupPage from "../Components/LoginPart/SignupPage";
+import LoginPage from "../Components/LoginPart/LoginPage";
 
 function AllRoutes() {
   return (
@@ -39,6 +42,8 @@ function AllRoutes() {
         <Route path="/:router/:id" element={<OneProductPage />}></Route>
         <Route path="/:wish" element={<Wishlist />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/signup" element={<SignupPage />}></Route>
       </Routes>
       <br />
       <br />
