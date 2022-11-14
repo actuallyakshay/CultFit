@@ -70,6 +70,9 @@ const ListHeader = ({ children }) => {
 };
 
 export default function Footer() {
+
+  
+
   return (
     <Box bgColor="#000000" color="whiteAlpha.800" py="10">
       <Container as={Stack} maxW={"6xl"} py={10}>

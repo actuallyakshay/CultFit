@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 
 import React from "react";
 import OneProductPage from "../Pages/SingleProductPage";
-import AllProducts from "../Components/AllProduct/AllProducts";
 import HomePage from "../Components/HomePage";
 import Mens from "../Pages/All10Pages/Mens";
 import WoMens from "../Pages/All10Pages/women";
@@ -14,19 +13,14 @@ import Cycles from "../Pages/All10Pages/Cycles";
 import Accessories from "../Pages/All10Pages/Accessories";
 import Supplements from "../Pages/All10Pages/Supplements";
 import Equipments from "../Pages/All10Pages/Equipments";
-import CultStoreNavbar from "../Components/CultStoreNavbar/CultStoreNavbar";
-import Footer from "../utils/Footer";
 import Wishlist from "../Organism/WishList&Cart/Wishlist";
 import Cart from "../Organism/WishList&Cart/Cart";
-import UserLogin from "../Components/LoginPart/UserLogin";
 import SignupPage from "../Components/LoginPart/SignupPage";
 import LoginPage from "../Components/LoginPart/LoginPage";
 
 function AllRoutes() {
   return (
     <>
-      <CultStoreNavbar />
-      <br />
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/mens" element={<Mens />}></Route>
@@ -40,15 +34,11 @@ function AllRoutes() {
         <Route path="/supplements" element={<Supplements />}></Route>
         <Route path="/equipments" element={<Equipments />}></Route>
         <Route path="/:router/:id" element={<OneProductPage />}></Route>
-        <Route path="/:wish" element={<Wishlist />}></Route>
+        <Route path="/wishlist" element={<Wishlist />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/signup" element={<SignupPage />}></Route>
       </Routes>
-      <br />
-      <br />
-      <br />
-      <Footer />
     </>
   );
 }

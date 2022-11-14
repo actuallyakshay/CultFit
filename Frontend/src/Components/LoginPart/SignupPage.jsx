@@ -21,7 +21,7 @@ import React, { useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsPerson, BsShieldLockFill } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function SignupPage() {
   const [value, setValue] = useState("");

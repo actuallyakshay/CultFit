@@ -34,8 +34,8 @@ function SingleProduct({
 
   const { wish } = useParams();
 
-  const handleGO = (route, _id) => {
-    dispatch(getSingleData(route, _id));
+  const handleGO = (_id) => {
+    dispatch(getSingleData( _id));
   };
 
   return (
@@ -45,7 +45,7 @@ function SingleProduct({
           className="container"
           overflow={"hidden"}
           borderRadius={"2px"}
-          onClick={() => handleGO(route, _id)}
+          onClick={() => handleGO( _id)}
           position="relative"
         >
           <Image

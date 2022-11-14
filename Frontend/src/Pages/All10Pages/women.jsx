@@ -4,16 +4,9 @@ import {
   Button,
   Flex,
   Grid,
-  Heading,
-  HStack,
-  Image,
-  Link,
-  Text,
-  VStack,
   Input,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import AllProducts from "../../Components/AllProduct/AllProducts";
 import { getData } from "../../Redux/GetData/getData.actions";
 
 import SortByPrice from "../../Organism/FilterByPrice";

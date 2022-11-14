@@ -38,6 +38,7 @@ import styled from "styled-components";
 
 export default function CultStoreNavbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const navigate = useNavigate()
 
   return (
     <Box position="sticky" top="0" bgColor="white" zIndex="3">
@@ -90,7 +91,7 @@ export default function CultStoreNavbar() {
               <GoLocation />
             </Button>
           </Tooltip>
-          <BsHeart />
+          <BsHeart onClick={() => navigate("/wishlist")} />
           <UserLogin />
           <Button
             fontSize={"sm"}
@@ -99,7 +100,7 @@ export default function CultStoreNavbar() {
             color="black"
           >
             <Link href="/cart">
-              <BsCart fontSize={"20px"} />
+              <BsCart fontSize={"20px"} onClick={() => navigate("/cart")} />
             </Link>
           </Button>
         </HStack>

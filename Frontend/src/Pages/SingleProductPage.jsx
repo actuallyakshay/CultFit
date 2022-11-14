@@ -85,7 +85,7 @@ function OneProductPage() {
               letterSpacing=".2px"
               fontWeight="500"
             >
-              {sdata.price1}
+              ₹ {sdata.price1}
             </Heading>
             <Heading
               color="rgba(0, 0, 0, 0.6)"
@@ -95,7 +95,7 @@ function OneProductPage() {
               as="s"
             >
               {" "}
-              {sdata.price2}
+              ₹ {sdata.price2}
             </Heading>
             <Heading
               fontSize={"16px"}
@@ -105,7 +105,7 @@ function OneProductPage() {
               p="2"
               color="white"
             >
-              {sdata.off}
+              {sdata.off}% off
             </Heading>
           </HStack>
           <Text

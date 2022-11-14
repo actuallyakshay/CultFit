@@ -28,11 +28,13 @@ import { FcGoogle } from "react-icons/fc";
 import { AiOutlineMail } from "react-icons/ai";
 import { PhoneIcon } from "@chakra-ui/icons";
 import { BsGoogle } from "react-icons/bs";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 function UserLogin() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
+
+  const { signup } = useParams();
 
   return (
     <>
@@ -78,7 +80,7 @@ function UserLogin() {
                     navigate("/signup");
                   }}
                 >
-                  Signup via 
+                  Signup via
                 </Button>
                 <HStack w="full">
                   <Box

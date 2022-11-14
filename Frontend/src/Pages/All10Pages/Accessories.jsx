@@ -13,7 +13,6 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import AllProducts from "../../Components/AllProduct/AllProducts";
 import { getData } from "../../Redux/GetData/getData.actions";
 
 import SortByPrice from "../../Organism/FilterByPrice";
@@ -27,6 +26,7 @@ import CommanButton from "../../Organism/CommanButton";
 import { getButton } from "../../Redux/ButtonRoute/button.action";
 import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
+import CultStoreNavbar from "../../Components/CultStoreNavbar/CultStoreNavbar";
 
 function Accessories() {
   const data = useSelector((state) => state?.getData?.data);
@@ -81,89 +81,91 @@ function Accessories() {
   return isLoading ? (
     <Loader />
   ) : (
-    <Box bgColor="#F8F8F8">
-      <Grid
-        gridTemplateColumns={"repeat(2,1fr)"}
-        // border="2px solid red"
-        w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
-        m="auto"
-        fontFamily={"sans-serif"}
-        // justifyContent={"space-between"}
-        alignItems="center"
-        gap="5"
-      >
-        <Flex
-          border="1px solid gray"
-          flexDirection="column"
-          position="relative"
-          borderRadius="8px"
-        >
-          <Flex position="relative" alignItems="center" borderRadius="10px">
-            <Input
-              value={value}
-              type="text"
-              placeholder="enter query here"
-              outline="none"
-              border="none"
-              flex="1"
-              letterSpacing=".4px"
-              fontSize="19px"
-              focusBorderColor="none"
-              _placeholder={{
-                opacity: 0.4,
-                color: "gray",
-                letterSpacing: "0",
-              }}
-              onChange={(e) => handleChange(e)}
-            />
-            <Box pr="10px">
-              <BsSearch fontSize="20px" color="rgb(255, 50, 120)" />
-            </Box>
-          </Flex>
-          {inputLoading ? (
-            <LoaderInput />
-          ) : (
-            <InputSearchSingleData
-              input={input}
-              value={value}
-              height={height}
-            />
-          )}
-        </Flex>
-        <Flex
+    <>
+      <Box bgColor="#F8F8F8">
+        <Grid
+          gridTemplateColumns={"repeat(2,1fr)"}
           // border="2px solid red"
-          justifyContent={"space-between"}
+          w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
+          m="auto"
+          fontFamily={"sans-serif"}
+          // justifyContent={"space-between"}
           alignItems="center"
-          gap="2"
+          gap="5"
         >
-          <FilterByPriceOff hanldeOff={hanldeOff} />
-          <SortByDiscount handleDiscountSort={handleDiscountSort} />
-          <SortByPrice handleLH={handleLH} handleHL={handleHL} />
-        </Flex>
-      </Grid>
-      <br />
-      <CommanButton array={accessrories} handleFilter={handleFilter} />
+          <Flex
+            border="1px solid gray"
+            flexDirection="column"
+            position="relative"
+            borderRadius="8px"
+          >
+            <Flex position="relative" alignItems="center" borderRadius="10px">
+              <Input
+                value={value}
+                type="text"
+                placeholder="enter query here"
+                outline="none"
+                border="none"
+                flex="1"
+                letterSpacing=".4px"
+                fontSize="19px"
+                focusBorderColor="none"
+                _placeholder={{
+                  opacity: 0.4,
+                  color: "gray",
+                  letterSpacing: "0",
+                }}
+                onChange={(e) => handleChange(e)}
+              />
+              <Box pr="10px">
+                <BsSearch fontSize="20px" color="rgb(255, 50, 120)" />
+              </Box>
+            </Flex>
+            {inputLoading ? (
+              <LoaderInput />
+            ) : (
+              <InputSearchSingleData
+                input={input}
+                value={value}
+                height={height}
+              />
+            )}
+          </Flex>
+          <Flex
+            // border="2px solid red"
+            justifyContent={"space-between"}
+            alignItems="center"
+            gap="2"
+          >
+            <FilterByPriceOff hanldeOff={hanldeOff} />
+            <SortByDiscount handleDiscountSort={handleDiscountSort} />
+            <SortByPrice handleLH={handleLH} handleHL={handleHL} />
+          </Flex>
+        </Grid>
+        <br />
+        <CommanButton array={accessrories} handleFilter={handleFilter} />
 
-      <Grid
-        gridTemplateColumns={{
-          base: "repeat(2,1fr)",
-          sm: "repeat(2,1fr)",
-          md: "repeat(3,1fr)",
-          lg: "repeat(4,1fr)",
-        }}
-        gap={{ base: "2", sm: "3", md: "4", lg: "6" }}
-        rowGap="6"
-        w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
-        m="auto"
-        fontFamily={"sans-serif"}
-        mt="5"
-        position={"relative"}
-      >
-        {data?.map((el) => {
-          return <SingleProduct {...el} key={el._id} />;
-        })}
-      </Grid>
-    </Box>
+        <Grid
+          gridTemplateColumns={{
+            base: "repeat(2,1fr)",
+            sm: "repeat(2,1fr)",
+            md: "repeat(3,1fr)",
+            lg: "repeat(4,1fr)",
+          }}
+          gap={{ base: "2", sm: "3", md: "4", lg: "6" }}
+          rowGap="6"
+          w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
+          m="auto"
+          fontFamily={"sans-serif"}
+          mt="5"
+          position={"relative"}
+        >
+          {data?.map((el) => {
+            return <SingleProduct {...el} key={el._id} />;
+          })}
+        </Grid>
+      </Box>
+    </>
   );
 }
 

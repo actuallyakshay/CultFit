@@ -15,8 +15,10 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { BsShieldLockFill } from "react-icons/bs";
+import { useParams } from "react-router-dom";
 
 function LoginPage() {
+    
   return (
     <Box position={"relative"}>
       <Box position={"absolute"} w="fit-content" opacity={0.7}>
