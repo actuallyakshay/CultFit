@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Input,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Input } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../Redux/GetData/getData.actions";
 
@@ -20,6 +14,8 @@ import CommanButton from "../../Organism/CommanButton";
 import { getButton } from "../../Redux/ButtonRoute/button.action";
 import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
+import CultStoreNavbar from "../../Components/CultStoreNavbar/CultStoreNavbar";
+import Footer from "../../utils/Footer";
 
 function Mens() {
   const [a, setA] = useState("wowomens");
@@ -33,8 +29,6 @@ function Mens() {
   const INPUT = useSelector((state) => state.inputData.inputData);
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
 
-
-  
   useEffect(() => {
     dispatch(getData("womens"));
     dispatch(getButton("womens"));
@@ -73,11 +67,11 @@ function Mens() {
     dispatch(getInputData("womens", value));
   };
 
-
   return isLoading ? (
     <Loader />
   ) : (
     <>
+      <CultStoreNavbar />
       <Grid
         gridTemplateColumns={"repeat(2,1fr)"}
         // border="2px solid red"
@@ -161,6 +155,7 @@ function Mens() {
           return <SingleProduct {...el} key={el._id} />;
         })}
       </Grid>
+      <Footer />
     </>
   );
 }

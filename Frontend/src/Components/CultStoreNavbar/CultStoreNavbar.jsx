@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -18,6 +18,25 @@ import {
   Image,
   HStack,
   Tooltip,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Avatar,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Input,
+  VStack,
+  useToast,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -33,83 +52,259 @@ import { getButton } from "../../Redux/ButtonRoute/button.action";
 import { useNavigate, useParams } from "react-router-dom";
 import { GoLocation } from "react-icons/go";
 import { GrLocationPin } from "react-icons/gr";
+import { RiAdminFill } from "react-icons/ri";
+import { HiOutlineUser } from "react-icons/hi";
 import { MdLocationSearching } from "react-icons/md";
 import styled from "styled-components";
+import { BiLogOutCircle } from "react-icons/bi";
+import { LOGOUT } from "../../Redux/Auth/auth.actions";
+import axios from "axios";
 
 export default function CultStoreNavbar() {
-  const { isOpen, onToggle } = useDisclosure();
-  const navigate = useNavigate()
+  const { isOpen, onToggle, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+  const token = useSelector((state) => state?.auth?.data?.token);
+  const isAuth = useSelector((state) => state?.auth?.data?.isAuth);
+  const dispatch = useDispatch();
+  const pinCode = useSelector((state) => state?.pin?.pinCode);
+  const location = localStorage.getItem("location") || "";
+  const [admin, setAdmin] = useState({
+    email: "",
+    password: "",
+  });
+  const toast = useToast();
+
+  const handleLOGOUT = () => {
+    dispatch(LOGOUT());
+    localStorage.removeItem("location");
+  };
+
+  useEffect(() => {
+    getLocation();
+  }, []);
+
+  const handleAdmin = (e) => {
+    setAdmin({ ...admin, [e.target.name]: e.target.value });
+  };
+
+  const handleGOADMIN = () => {
+    if (
+      admin?.email === "actually@gmail.com" &&
+      admin?.password === "actually"
+    ) {
+      navigate("/dashboard");
+      toast({
+        title: `Hey ! Akshay💛 `,
+        description: "Welcome back ! 😊",
+        status: "success",
+        position: "top",
+        isClosable: true,
+        duration: 2000,
+      });
+      onClose();
+    } else {
+      navigate("/");
+      toast({
+        title: ` Hey! User `,
+        description: "You are not authorized to handle this page",
+        status: "warning",
+        position: "top",
+        isClosable: true,
+        duration: 2000,
+      });
+    }
+  };
+
+  const getLocation = () => {
+    axios
+      .get(`https://api.postalpincode.in/pincode/${pinCode}`)
+      .then((res) => {
+        localStorage.setItem("location", res?.data[0]?.PostOffice[0]?.District);
+      })
+      .catch((err) => console.log(err.message));
+  };
 
   return (
-    <Box position="sticky" top="0" bgColor="white" zIndex="3">
-      <Flex
-        bg={useColorModeValue("white", "gray.800")}
-        color=" #262626"
-        fontFamily="sans-serif"
-        minH={"60px"}
-        py={{ base: 2 }}
-        px={{ base: 4 }}
-        borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
-      >
+    <>
+      <Box position="sticky" top="0" bgColor="white" zIndex="3">
         <Flex
-          flex={{ base: 1, md: "auto" }}
-          ml={{ base: -2 }}
-          display={{ base: "flex", md: "none" }}
-        >
-          <IconButton
-            onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
-            variant={"ghost"}
-            aria-label={"Toggle Navigation"}
-          />
-        </Flex>
-        <Flex
-          flex={{ base: 1 }}
-          justify={{ base: "center", md: "start" }}
+          bg={useColorModeValue("white", "gray.800")}
+          color=" #262626"
+          fontFamily="sans-serif"
+          minH={"60px"}
+          py={{ base: 2 }}
+          px={{ base: 4 }}
+          borderStyle={"solid"}
+          borderColor={useColorModeValue("gray.200", "gray.900")}
           align={"center"}
         >
-          <Link href="/">
-            <Box>
-              <Image
-                w="120px"
-                src="https://cdn-images.cure.fit/www-curefit-com/image/upload/c_fill,w_135,ar_3.87,q_auto:eco,dpr_2,f_auto,fl_progressive//image/test/brand-logo/cultsport-black-logo.svg"
-              />
-            </Box>
-          </Link>
-
-          <Flex display={{ base: "none", md: "flex" }} ml={10}>
-            <DesktopNav />
-          </Flex>
-        </Flex>
-        <HStack flex={{ base: 1, md: 0 }} justify={"flex-end"} spacing={1}>
-          <Tooltip hasArrow label={`Search places`} bg="gray.300" color="black">
-            <Button bg="none">
-              <GoLocation />
-            </Button>
-          </Tooltip>
-          <BsHeart onClick={() => navigate("/wishlist")} />
-          <UserLogin />
-          <Button
-            fontSize={"sm"}
-            fontWeight={200}
-            variant={"link"}
-            color="black"
+          <Flex
+            flex={{ base: 1, md: "auto" }}
+            ml={{ base: -2 }}
+            display={{ base: "flex", md: "none" }}
           >
-            <Link href="/cart">
-              <BsCart fontSize={"20px"} onClick={() => navigate("/cart")} />
+            <IconButton
+              onClick={onToggle}
+              icon={
+                isOpen ? (
+                  <CloseIcon w={3} h={3} />
+                ) : (
+                  <HamburgerIcon w={5} h={5} />
+                )
+              }
+              variant={"ghost"}
+              aria-label={"Toggle Navigation"}
+            />
+          </Flex>
+          <Flex
+            flex={{ base: 1 }}
+            justify={{ base: "center", md: "start" }}
+            align={"center"}
+          >
+            <Link href="/">
+              <Box>
+                <Image
+                  w="120px"
+                  src="https://cdn-images.cure.fit/www-curefit-com/image/upload/c_fill,w_135,ar_3.87,q_auto:eco,dpr_2,f_auto,fl_progressive//image/test/brand-logo/cultsport-black-logo.svg"
+                />
+              </Box>
             </Link>
-          </Button>
-        </HStack>
-      </Flex>
 
-      <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
-      </Collapse>
-    </Box>
+            <Flex display={{ base: "none", md: "flex" }} ml={10}>
+              <DesktopNav />
+            </Flex>
+          </Flex>
+          <HStack flex={{ base: 1, md: 0 }} justify={"flex-end"} spacing={1}>
+            <Tooltip hasArrow label={location} bg="gray.300" color="black">
+              <Button bg="none" display={isAuth ? "flex" : "none"}>
+                <GoLocation />
+              </Button>
+            </Tooltip>
+
+            {!isAuth ? (
+              <UserLogin />
+            ) : (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  bg="none"
+                  _hover={{ bg: "none" }}
+                  _expanded={{ bg: "none" }}
+                  _focus={{ boxShadow: "none" }}
+                >
+                  <Avatar size="sm" />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem _hover={{ bg: "white" }}>
+                    {" "}
+                    <Button
+                      color="black"
+                      bg="white"
+                      w="full"
+                      leftIcon={<HiOutlineUser fontSize={"20px"} />}
+                      _hover={{ bg: "white" }}
+                      onClick={() => navigate("/cart")}
+                    >
+                      User Profile
+                    </Button>
+                  </MenuItem>
+                  <MenuItem _hover={{ bg: "white" }}>
+                    {" "}
+                    <Button
+                      w="full"
+                      bg="white"
+                      onClick={() => navigate("/wishlist")}
+                      _hover={{ bg: "white" }}
+                      leftIcon={<BsHeart />}
+                    >
+                      Wishlist
+                    </Button>
+                  </MenuItem>
+                  <MenuItem _hover={{ bg: "white" }}>
+                    {" "}
+                    <Button
+                      color="black"
+                      bg="white"
+                      w="full"
+                      leftIcon={<BsCart fontSize={"20px"} />}
+                      _hover={{ bg: "white" }}
+                      onClick={() => navigate("/cart")}
+                    >
+                      Cart
+                    </Button>
+                  </MenuItem>
+                  <MenuItem _hover={{ bg: "white" }}>
+                    <Button
+                      onClick={handleLOGOUT}
+                      w="full"
+                      color="black"
+                      bg="white"
+                      leftIcon={<BiLogOutCircle fontSize={"20px"} />}
+                      _hover={{ bg: "white" }}
+                    >
+                      Logout
+                    </Button>
+                  </MenuItem>
+                  <MenuItem _hover={{ bg: "white" }}>
+                    <Button
+                      leftIcon={<RiAdminFill />}
+                      onClick={onOpen}
+                      w="full"
+                      color="black"
+                      bg="white"
+                    >
+                      Admin Panel
+                    </Button>
+                    <Modal isOpen={isOpen} onClose={onClose}>
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>Admin Login Page</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                          <VStack>
+                            <Input
+                              value={admin.email}
+                              name="email"
+                              type="password"
+                              placeholder="Enter Admin's email"
+                              onChange={(e) => handleAdmin(e)}
+                            />
+                            <Input
+                              value={admin.password}
+                              type="password"
+                              name="password"
+                              placeholder="Enter Admin's password"
+                              onChange={(e) => handleAdmin(e)}
+                            />
+                          </VStack>
+                        </ModalBody>
+
+                        <ModalFooter>
+                          <Button
+                            w="full"
+                            colorScheme="blue"
+                            mr={3}
+                            size="sm"
+                            onClick={() => handleGOADMIN()}
+                          >
+                            Login as Admin
+                          </Button>
+                        </ModalFooter>
+                      </ModalContent>
+                    </Modal>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            )}
+          </HStack>
+        </Flex>
+
+        <Collapse in={isOpen} animateOpacity>
+          <MobileNav />
+        </Collapse>
+      </Box>
+      <br />
+    </>
   );
 }
 
@@ -123,20 +318,22 @@ const DesktopNav = () => {
 
   const hanldeNavigate = (el) => {
     dispatch(getButton(el));
-    navigate(el);
   };
 
   return (
     <Stack
       direction={"row"}
-      spacing={[3,1,1,2]}
+      spacing={[3, 1, 1, 2]}
       position="sticky"
       top="0"
       bgColor="white"
       zIndex="3"
     >
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label} onClick={() => hanldeNavigate(navItem.route)}>
+        <Box
+          key={navItem.label}
+          onClick={() => hanldeNavigate(navItem.route, navItem.href)}
+        >
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Link

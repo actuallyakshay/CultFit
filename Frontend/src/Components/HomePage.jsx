@@ -2,104 +2,111 @@ import { Box, Flex, Grid, Heading, Image, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getLOACTION } from "../Redux/PinCode/pincode.actions";
+import Footer from "../utils/Footer";
 import Loader from "../utils/Loader";
 import SliderCompo from "../utils/Slider";
 import Carousel3 from "./Carosal3";
 import Carosoul2 from "./Carosoul2";
 import Carousel from "./CarosoulCompo";
+import CultStoreNavbar from "./CultStoreNavbar/CultStoreNavbar";
 import HeadingLine from "./HeadingLine";
 function HomePage() {
   const dispatch = useDispatch();
   const [homeLoading, setHomeLoading] = useState(false);
 
-  useEffect(() => {}, []);
+
 
   return homeLoading ? (
     <Loader />
   ) : (
-    <Box overflow={"hidden"} bgColor="#F8F8F8">
-      <SliderCompo />
-      <HeadingLine title={"BESTSELLERS"} go={"/topSellings"} />
-      <Carosoul2 arr={betsSellers} />
-      <HeadingLine title={"JUST LAUNCHED"} go={"/topArrivals"} />
-      <Carousel arr={justLaunched} />
-      <HeadingLine title={"T-SHIRTS"} go={"/mens"} />
-      <Carousel3 arr={tshirts} />
-      <HeadingLine title={"CYCLES"} go={"/cycles"} />
-      <Carosoul2 arr={cycles} />
-      <HeadingLine title={"TREADMILLS"} go={"/equipments"} />
-      <Carousel3 arr={workoutCarosal} />
-      <HeadingLine title={"ACCESSORIES"} go={"/accessories"} />
-      <Carousel arr={accessories} />
-      <HeadingLine title={"TOPWEAR"} go={"/womens"} />
-      <Carosoul2 arr={bra} />
-      <HeadingLine title={"BOTTOMWEAR"} go={"/womens"} />
-      <Carousel arr={bottom} />
-      <HeadingLine title={"HEALTH & NUTRITION"} go={"/supplements"} />
-      <Carousel3 arr={health} />
-      <HeadingLine title={"SHOP BY WORKOUT"} go={"#"} />
-      <br />
-      <br />
-      <Grid
-        gridTemplateColumns={[
-          "repeat(2,1fr)",
-          "repeat(2,1fr)",
-          "repeat(4,1fr)",
-          "repeat(4,1fr)",
-        ]}
-        w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
-        m="auto"
-        gap="4"
-      >
-        {workout?.map((el) => {
-          return (
-            <Box overflow={"hidden"}>
-              <Image
-                src={el}
-                _hover={{
-                  transform: "scale(1.07)",
-                  transformOrigin: "50% 50%",
-                  cursor: "pointer",
-                  opacity: ".9",
-                }}
-                transition="transform .5s"
-              />
-            </Box>
-          );
-        })}
-      </Grid>
-      <HeadingLine title={"SPOTLIGHT"} go={"#"} />
-      <br />
-      <br />
-      <Grid
-        gridTemplateColumns={[
-          "repeat(1,1fr)",
-          "repeat(1,1fr)",
-          "repeat(2,1fr)",
-          "repeat(2,1fr)",
-        ]}
-        w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
-        m="auto"
-        gap="2"
-      >
-        {wArr?.map((el) => {
-          return (
-            <Box overflow={"hidden"}>
-              <Image
-                src={el}
-                _hover={{
-                  transform: "scale(1.02)",
-                  transformOrigin: "50% 50%",
-                  cursor: "pointer",
-                  opacity: ".9",
-                }}
-                transition="transform .5s"
-              />
-            </Box>
-          );
-        })}
-      </Grid>
-    </Box>
+    <>
+      <CultStoreNavbar />
+      <Box overflow={"hidden"} bgColor="#F8F8F8" mt="-5">
+        <SliderCompo />
+        <HeadingLine title={"BESTSELLERS"} go={"/topSellings"} />
+        <Carosoul2 arr={betsSellers} />
+        <HeadingLine title={"JUST LAUNCHED"} go={"/topArrivals"} />
+        <Carousel arr={justLaunched} />
+        <HeadingLine title={"T-SHIRTS"} go={"/mens"} />
+        <Carousel3 arr={tshirts} />
+        <HeadingLine title={"CYCLES"} go={"/cycles"} />
+        <Carosoul2 arr={cycles} />
+        <HeadingLine title={"TREADMILLS"} go={"/equipments"} />
+        <Carousel3 arr={workoutCarosal} />
+        <HeadingLine title={"ACCESSORIES"} go={"/accessories"} />
+        <Carousel arr={accessories} />
+        <HeadingLine title={"TOPWEAR"} go={"/womens"} />
+        <Carosoul2 arr={bra} />
+        <HeadingLine title={"BOTTOMWEAR"} go={"/womens"} />
+        <Carousel arr={bottom} />
+        <HeadingLine title={"HEALTH & NUTRITION"} go={"/supplements"} />
+        <Carousel3 arr={health} />
+        <HeadingLine title={"SHOP BY WORKOUT"} go={"#"} />
+        <br />
+        <br />
+        <Grid
+          gridTemplateColumns={[
+            "repeat(2,1fr)",
+            "repeat(2,1fr)",
+            "repeat(4,1fr)",
+            "repeat(4,1fr)",
+          ]}
+          w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
+          m="auto"
+          gap="4"
+        >
+          {workout?.map((el) => {
+            return (
+              <Box overflow={"hidden"}>
+                <Image
+                  src={el}
+                  _hover={{
+                    transform: "scale(1.07)",
+                    transformOrigin: "50% 50%",
+                    cursor: "pointer",
+                    opacity: ".9",
+                  }}
+                  transition="transform .5s"
+                />
+              </Box>
+            );
+          })}
+        </Grid>
+        <HeadingLine title={"SPOTLIGHT"} go={"#"} />
+        <br />
+        <br />
+        <Grid
+          gridTemplateColumns={[
+            "repeat(1,1fr)",
+            "repeat(1,1fr)",
+            "repeat(2,1fr)",
+            "repeat(2,1fr)",
+          ]}
+          w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
+          m="auto"
+          gap="2"
+        >
+          {wArr?.map((el) => {
+            return (
+              <Box overflow={"hidden"}>
+                <Image
+                  src={el}
+                  _hover={{
+                    transform: "scale(1.02)",
+                    transformOrigin: "50% 50%",
+                    cursor: "pointer",
+                    opacity: ".9",
+                  }}
+                  transition="transform .5s"
+                />
+              </Box>
+            );
+          })}
+        </Grid>
+      </Box>
+      <Footer />
+    </>
   );
 }
 

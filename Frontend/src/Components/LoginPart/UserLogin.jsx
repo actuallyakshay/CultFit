@@ -29,6 +29,8 @@ import { AiOutlineMail } from "react-icons/ai";
 import { PhoneIcon } from "@chakra-ui/icons";
 import { BsGoogle } from "react-icons/bs";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { GrUserAdmin } from "react-icons/gr";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 function UserLogin() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -133,6 +135,33 @@ function UserLogin() {
                   rightIcon={<PhoneIcon fontSize={"14px"} />}
                 >
                   Signup via
+                </Button>
+                <HStack w="full">
+                  <Box
+                    borderBottom={"2px solid rgb(224,224,224)"}
+                    w="130px"
+                  ></Box>
+                  <Text color="rgb(200,200,200)" fontWeight={"500"}>
+                    OR
+                  </Text>
+                  <Box
+                    w="130px"
+                    borderBottom={"2px solid rgb(224,224,224)"}
+                  ></Box>
+                </HStack>
+                <Button
+                  colorScheme={"red"}
+                  w="full"
+                  size="sm"
+                  mt="5"
+                  letterSpacing={"1.3px"}
+                  fontWeight="500"
+                  fontSize="14px"
+                  color="white"
+                  rightIcon={<MdAdminPanelSettings fontSize={"18px"} />}
+                  onClick={() => navigate("/dashboard")}
+                >
+                  Admin panel
                 </Button>
               </VStack>
               <br />

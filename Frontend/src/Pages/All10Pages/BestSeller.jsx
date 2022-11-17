@@ -26,6 +26,8 @@ import CommanButton from "../../Organism/CommanButton";
 import { getButton } from "../../Redux/ButtonRoute/button.action";
 import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
+import CultStoreNavbar from "../../Components/CultStoreNavbar/CultStoreNavbar";
+import Footer from "../../utils/Footer";
 
 function BestSellers() {
   const [a, setA] = useState("topSellings");
@@ -78,11 +80,12 @@ function BestSellers() {
     dispatch(getInputData("topSellings", value));
   };
 
-  
   return isLoading ? (
     <Loader />
   ) : (
     <>
+      <CultStoreNavbar />
+      <br />
       <Grid
         gridTemplateColumns={"repeat(2,1fr)"}
         // border="2px solid red"
@@ -165,6 +168,8 @@ function BestSellers() {
           return <SingleProduct {...el} key={el._id} />;
         })}
       </Grid>
+      <br />
+      <Footer />
     </>
   );
 }

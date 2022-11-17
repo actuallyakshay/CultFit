@@ -26,6 +26,8 @@ import CommanButton from "../../Organism/CommanButton";
 import { getButton } from "../../Redux/ButtonRoute/button.action";
 import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
+import CultStoreNavbar from "../../Components/CultStoreNavbar/CultStoreNavbar";
+import Footer from "../../utils/Footer";
 
 function Footwear() {
   const [a, setA] = useState("footwears");
@@ -82,6 +84,7 @@ function Footwear() {
     <Loader />
   ) : (
     <>
+      <CultStoreNavbar />
       <Grid
         gridTemplateColumns={"repeat(2,1fr)"}
         // border="2px solid red"
@@ -164,6 +167,7 @@ function Footwear() {
           return <SingleProduct {...el} key={el._id} />;
         })}
       </Grid>
+      <Footer />
     </>
   );
 }

@@ -26,6 +26,8 @@ import CommanButton from "../../Organism/CommanButton";
 import { getButton } from "../../Redux/ButtonRoute/button.action";
 import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
+import CultStoreNavbar from "../../Components/CultStoreNavbar/CultStoreNavbar";
+import Footer from "../../utils/Footer";
 
 function Mens() {
   const data = useSelector((state) => state?.getData?.data);
@@ -80,7 +82,8 @@ function Mens() {
   return isLoading ? (
     <Loader />
   ) : (
-    <>
+      <>
+        <CultStoreNavbar />
       <Grid
         gridTemplateColumns={"repeat(2,1fr)"}
         // border="2px solid red"
@@ -157,7 +160,8 @@ function Mens() {
         {data?.map((el) => {
           return <SingleProduct {...el} key={el._id} />;
         })}
-      </Grid>
+        </Grid>
+        <Footer />
     </>
   );
 }

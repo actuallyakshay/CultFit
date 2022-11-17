@@ -11,11 +11,6 @@ const wishlistSchema = new mongoose.Schema({
     ref: "user",
     required: true,
   },
-  quantity: {
-    type: Number,
-    required: true,
-    min: 1,
-  },
 });
 
 const Wishlist = mongoose.model("wishlist", wishlistSchema);

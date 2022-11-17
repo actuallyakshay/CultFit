@@ -15,16 +15,33 @@ import {
   PinInput,
   PinInputField,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
+import axios from "axios";
 import React, { useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsPerson, BsShieldLockFill } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
-import { Link, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
 function SignupPage() {
-  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  const [signupform, setSignup] = useState({
+    name: "",
+    password: "",
+    pinCode: "",
+    email: "",
+  });
+
+  const handleSignupForm = (e) => {
+    setSignup({ ...signupform, [e.target.name]: e.target.value });
+  };
+
   return (
     <Box position={"realtive"}>
       <Box position={"absolute"} w="fit-content" opacity={0.5} zIndex={-1}>
@@ -51,7 +68,11 @@ function SignupPage() {
         </Box>
         <HStack>
           <BsShieldLockFill color="green" fontSize={"30px"} />
-          <Text fontWeight={"500"} color="blackAlpha.600">
+          <Text
+            fontWeight={"500"}
+            color="blackAlpha.600"
+            display={{ base: "none", md: "flex" }}
+          >
             1 0 0 % {"  "} S E C U R E
           </Text>
         </HStack>
@@ -86,8 +107,8 @@ function SignupPage() {
               <InputGroup>
                 <InputLeftElement children={<BsPerson />} />
                 <Input
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
+                  value={signupform.name}
+                  onChange={(e) => handleSignupForm(e)}
                   fontWeight={"600"}
                   letterSpacing="1px"
                   type="text"
@@ -107,7 +128,7 @@ function SignupPage() {
                     fontWeight: "400",
                   }}
                   onFocus={{ border: "0", borderBottom: "1px solid #ff3e6c" }}
-                  // name="name"
+                  name="name"
                 />
               </InputGroup>
             </FormControl>
@@ -116,6 +137,8 @@ function SignupPage() {
               <InputGroup>
                 <InputLeftElement children={<BsPerson />} />
                 <Input
+                  value={signupform.email}
+                  onChange={(e) => handleSignupForm(e)}
                   fontWeight={"600"}
                   letterSpacing="1px"
                   type="text"
@@ -135,7 +158,7 @@ function SignupPage() {
                     fontWeight: "400",
                   }}
                   onFocus={{ border: "0", borderBottom: "1px solid #ff3e6c" }}
-                  name="name"
+                  name="email"
                 />
               </InputGroup>
             </FormControl>
@@ -144,6 +167,8 @@ function SignupPage() {
               <InputGroup>
                 <InputLeftElement children={<BsPerson />} />
                 <Input
+                  value={signupform.password}
+                  onChange={(e) => handleSignupForm(e)}
                   fontWeight={"600"}
                   letterSpacing="1px"
                   type="text"
@@ -163,41 +188,93 @@ function SignupPage() {
                     fontWeight: "400",
                   }}
                   onFocus={{ border: "0", borderBottom: "1px solid #ff3e6c" }}
-                  name="name"
+                  name="password"
                 />
               </InputGroup>
             </FormControl>
 
             <FormControl isRequired>
-              <FormLabel mb="2">Pin Code</FormLabel>
-              <HStack>
-                <PinInput>
-                  <PinInputField />
-                  <PinInputField />
-                  <PinInputField />
-                  <PinInputField />
-                  <PinInputField />
-                  <PinInputField />
-                </PinInput>
-              </HStack>
+              <FormControl isRequired>
+                <FormLabel mb="0">PinCode</FormLabel>
+                <InputGroup>
+                  <InputLeftElement children={<BsPerson />} />
+                  <Input
+                    value={signupform.pinCode}
+                    onChange={(e) => handleSignupForm(e)}
+                    fontWeight={"600"}
+                    letterSpacing="1px"
+                    type="number"
+                    outline="none"
+                    flex="1"
+                    border={"none"}
+                    borderBottom={"1px solid #ff3e6c"}
+                    w="full"
+                    borderRadius={0}
+                    focusBorderColor="none"
+                    placeholder="Enter pinCode here (length : 6)"
+                    _hover={{ borderBottom: "1px solid #ff3e6c" }}
+                    _placeholder={{
+                      opacity: 0.4,
+                      color: "gray",
+                      letterSpacing: "0",
+                      fontWeight: "400",
+                    }}
+                    onFocus={{ border: "0", borderBottom: "1px solid #ff3e6c" }}
+                    name="pinCode"
+                  />
+                </InputGroup>
+              </FormControl>
             </FormControl>
             <br />
+            <Button
+              bgColor="rgba(255, 49, 109, 0.7)"
+              w="full"
+              size="sm"
+              py="4"
+              _hover={{ bgColor: "rgba(255, 49, 109, 0.7)" }}
+              letterSpacing={"1.3px"}
+              fontWeight="500"
+              fontSize="14px"
+              color="white"
+              leftIcon={<AiOutlineMail fontSize={"20px"} />}
+              onClick={() => {
+                console.log(signupform);
+                axios
+                  .post(`http://localhost:8080/user/signup`, signupform)
+                  .then((res) => {
+                    res.data == "Acc created"
+                      ? toast({
+                          title: "Account created successfully",
+                          status: "success",
+                          position: "top",
+                          duration: 2000,
+                          isClosable: true,
+                        }) && navigate("/login")
+                      : toast({
+                          title:
+                            "This acc has been already register previously",
+                          status: "error",
+                          position: "top",
+                          duration: 2000,
+                          isClosable: true,
+                        });
+                  })
+                  .catch((err) => console.log(err.message));
+              }}
+            >
+              {" "}
+              SignUp
+            </Button>
+            {/* </Link> */}
             <Link to="/login">
-              <Button
-                bgColor="rgba(255, 49, 109, 0.7)"
-                w="full"
-                size="sm"
-                py="4"
-                _hover={{ bgColor: "rgba(255, 49, 109, 0.7)" }}
-                letterSpacing={"1.3px"}
-                fontWeight="500"
-                fontSize="14px"
-                color="white"
-                leftIcon={<AiOutlineMail fontSize={"20px"} />}
+              <Text
+                as="i"
+                _hover={{ textDecoration: "underline" }}
+                fontSize="12px"
+                color="rgba(255, 49, 109, 0.7)"
               >
-                {" "}
-                SignUp
-              </Button>
+                Already Signed up ? GO TO LOGIN{" "}
+              </Text>
             </Link>
           </Flex>
         </VStack>

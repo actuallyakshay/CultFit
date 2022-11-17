@@ -17,6 +17,8 @@ import { Link, useParams } from "react-router-dom";
 import { getSingleData } from "../Redux/SingleProduct/single.actions";
 import { SlClose } from "react-icons/sl";
 import styled from "styled-components";
+import axios from "axios";
+import { postCart } from "../Redux/Cart/cart.actions";
 
 function SingleProduct({
   image,
@@ -31,23 +33,38 @@ function SingleProduct({
   const route = useSelector((state) => state?.button?.route);
   const dispatch = useDispatch();
   const toast = useToast();
+  const token = useSelector((state) => state?.auth?.data?.token);
+  const cartData = useSelector((state) => state?.cart?.cartData);
+  const isAuth = useSelector((state) => state?.auth?.data?.isAuth);
 
   const { wish } = useParams();
 
   const handleGO = (_id) => {
-    dispatch(getSingleData( _id));
+    dispatch(getSingleData(_id));
+  };
+
+  const handleaddCart = (_id, quantity, token) => {
+    dispatch(postCart(_id, quantity, token));
+    toast({
+      title: `Hey ! Hope you are doing well 💛 `,
+      description: "Product Added Successfully😊",
+      status: "success",
+      position: "top",
+      isClosable: true,
+      duration: 2000,
+    });
   };
 
   return (
     <StyledVStack alignItems={"start"} position="relative">
-      <Link to={route == "" ? "/" : `/${route}/${_id}`}>
-        <Box
-          className="container"
-          overflow={"hidden"}
-          borderRadius={"2px"}
-          onClick={() => handleGO( _id)}
-          position="relative"
-        >
+      <Box
+        className="container"
+        overflow={"hidden"}
+        borderRadius={"2px"}
+        onClick={() => handleGO(_id)}
+        position="relative"
+      >
+        <Link to={route == "" ? "/" : `/${route}/${_id}`}>
           <Image
             src={image}
             _hover={{
@@ -58,36 +75,49 @@ function SingleProduct({
             }}
             transition="transform .5s"
           />
-          <Box
-            className="child"
-            bgColor="#fff0f4"
-            zIndex={10}
-            h="9vh"
-            w="full"
-            position="absolute"
-            bottom="0"
-            color=" #ff3e6c"
+        </Link>
+        <Box
+          className="child"
+          bgColor="#fff0f4"
+          zIndex={10}
+          h="9vh"
+          w="full"
+          position="absolute"
+          bottom="0"
+          color=" #ff3e6c"
+          _hover={{ cursor: "pointer" }}
+          onClick={() => {
+            !isAuth
+              ? toast({
+                  duration: 2000,
+                  title: `hmm! Want to add in Cart 😒 ?`,
+                  description: "You have to LOGIN first 😊",
+                  position: "top",
+                  status: "error",
+                  isClosable: true,
+                })
+              : handleaddCart(_id, 1, token);
+          }}
+        >
+          <HStack
+            justifyContent="center"
+            alignItems="center"
+            flexDirection={"row"}
+            pt="3"
+            gap="10"
           >
-            <HStack
-              justifyContent="center"
-              alignItems="center"
-              flexDirection={"row"}
-              pt="3"
-              gap="10"
+            <Heading
+              fontSize={"15px"}
+              letterSpacing=".8px"
+              fontWeight="500"
+              size="md"
             >
-              <Heading
-                fontSize={"15px"}
-                letterSpacing=".8px"
-                fontWeight="500"
-                size="md"
-              >
-                ADD TO CART
-              </Heading>
-              <BsCartPlusFill fontSize={"25px"} color=" #ff3e6c" />
-            </HStack>
-          </Box>
+              ADD TO CART
+            </Heading>
+            <BsCartPlusFill fontSize={"25px"} color=" #ff3e6c" />
+          </HStack>
         </Box>
-      </Link>
+      </Box>
 
       {wish !== undefined ? (
         <Box
@@ -113,17 +143,52 @@ function SingleProduct({
           position="absolute"
           top="1%"
           right="3%"
-          color="blackAlpha.600"
+          color="#fa2a5a"
           _hover={{ cursor: "pointer", color: "black" }}
-          onClick={() =>
-            toast({
-              duration: 2000,
-              title: `Added to Wishlist`,
-              position: "top",
-              status: "success",
-              isClosable: true,
-            })
-          }
+          onClick={() => {
+            !isAuth
+              ? toast({
+                  duration: 2000,
+                  title: `hmm! Want to add in wishlist ? ❤️`,
+                  description: "You have to LOGIN first 🌚",
+                  position: "top",
+                  status: "error",
+                  isClosable: true,
+                })
+              : axios
+                  .post(
+                    `http://localhost:8080/wishlist`,
+                    {
+                      product: _id,
+                    },
+                    {
+                      headers: {
+                        token: token,
+                      },
+                    }
+                  )
+                  .then((res) =>
+                    res.data === "Already present to wishlist"
+                      ? toast({
+                          duration: 2000,
+                          title: `Hey ! 💛 `,
+                          description:
+                            " This item is already present in your wishlist 💔 ",
+                          position: "top",
+                          status: "error",
+                          isClosable: true,
+                        })
+                      : toast({
+                          duration: 2000,
+                          title: `Hey ! Hope you are doing well  💛 `,
+                          description: "This item has been added to Wishlist 💛",
+                          position: "top",
+                          status: "success",
+                          isClosable: true,
+                        })
+                  )
+                  .catch((err) => console.log(err));
+          }}
         >
           <BsHeart fontSize={"27px"} />
         </Box>

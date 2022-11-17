@@ -27,6 +27,7 @@ import { getButton } from "../../Redux/ButtonRoute/button.action";
 import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
 import CultStoreNavbar from "../../Components/CultStoreNavbar/CultStoreNavbar";
+import Footer from "../../utils/Footer";
 
 function Accessories() {
   const data = useSelector((state) => state?.getData?.data);
@@ -82,6 +83,8 @@ function Accessories() {
     <Loader />
   ) : (
     <>
+      <CultStoreNavbar />
+      <br />
       <Box bgColor="#F8F8F8">
         <Grid
           gridTemplateColumns={"repeat(2,1fr)"}
@@ -165,6 +168,8 @@ function Accessories() {
           })}
         </Grid>
       </Box>
+      <br />
+      <Footer />
     </>
   );
 }

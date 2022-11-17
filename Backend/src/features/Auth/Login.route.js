@@ -14,7 +14,8 @@ app.post("/login", async (req, res) => {
   try {
     let temp = await User.findOne({ email });
 
-    if (temp) {3
+    if (temp) {
+      3;
       if (temp.email === email) {
         if (temp.password === password) {
           res.send({
@@ -37,7 +38,7 @@ app.post("/signup", async (req, res) => {
   try {
     let existUser = await User.findOne({ email });
     if (existUser) {
-      res.status(404).send("User already Exist");
+      res.send("User already Exist");
     } else {
       let temp = await User.create({
         name: name,
@@ -45,7 +46,7 @@ app.post("/signup", async (req, res) => {
         password: password,
         pinCode: pinCode,
       });
-      res.send("Acc created")
+      res.send("Acc created");
     }
   } catch (error) {
     res.status(400).send(error.message);
@@ -60,6 +61,11 @@ app.delete("/:id", async (req, res) => {
   } catch (error) {
     res.send(error.message);
   }
+});
+
+app.put("", async (req, res) => {
+  let temp = await User.findOne({ email: req.body.email });
+  res.send(temp);
 });
 
 module.exports = app;

@@ -1,4 +1,5 @@
 const express = require("express");
+const Trash = require("../TrashProducts/trash.model");
 const Product = require("./product.model");
 
 const app = express.Router();
@@ -98,6 +99,33 @@ app.get("/:id", async (req, res) => {
     res.send(Singleproduct);
   } catch (error) {
     res.status(400).send(error.message);
+  }
+});
+
+app.patch("/:id", async (req, res) => {
+  try {
+    let product = await Product.findByIdAndUpdate(req.params.id, {
+      image: req.body?.image,
+      price1: req.body?.price1,
+      price2: req.body?.price2,
+      brand: req.body?.brand,
+      title: req.body?.title,
+      off: req.body?.off,
+      qty: req.body?.qty,
+    });
+    res.send(product);
+  } catch (e) {
+    res.send(e.message);
+  }
+});
+
+app.put("/:id", async (req, res) => {
+  try {
+    let trash = await Trash.create(req.body);
+    let product = await Product.findByIdAndDelete(req.params.id);
+    res.send(trash);
+  } catch (e) {
+    res.send(e.message);
   }
 });
 

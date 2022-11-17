@@ -1,9 +1,15 @@
-import { PIN_ERROR, PIN_LOADING, PIN_SUCCESS } from "./pincode.types";
+import {
+  PIN_ERROR,
+  PIN_LOACTION,
+  PIN_LOADING,
+  PIN_SUCCESS,
+} from "./pincode.types";
 
 const iState = {
   pinLoading: false,
   pinError: false,
   pinData: [],
+  pinCode: "",
 };
 
 export const pinReducer = (state = iState, action) => {
@@ -27,6 +33,11 @@ export const pinReducer = (state = iState, action) => {
         pinLoading: false,
       };
 
+    case PIN_LOACTION:
+      return {
+        ...state,
+        pinCode: action.payload,
+      };
     default:
       return state;
   }

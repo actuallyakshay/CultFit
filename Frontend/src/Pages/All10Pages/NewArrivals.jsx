@@ -26,6 +26,8 @@ import CommanButton from "../../Organism/CommanButton";
 import { getButton } from "../../Redux/ButtonRoute/button.action";
 import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
+import CultStoreNavbar from "../../Components/CultStoreNavbar/CultStoreNavbar";
+import Footer from "../../utils/Footer";
 
 function NewArrivals() {
   const [a, setA] = useState("topArrivals");
@@ -80,7 +82,8 @@ function NewArrivals() {
   return isLoading ? (
     <Loader />
   ) : (
-    <>
+      <>
+        <CultStoreNavbar />
       <Grid
         gridTemplateColumns={"repeat(2,1fr)"}
         // border="2px solid red"
@@ -162,7 +165,8 @@ function NewArrivals() {
         {data?.map((el) => {
           return <SingleProduct {...el} key={el._id} />;
         })}
-      </Grid>
+        </Grid>
+        <Footer />
     </>
   );
 }

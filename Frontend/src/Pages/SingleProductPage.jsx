@@ -15,6 +15,8 @@ import ReactImageMagnify from "react-image-magnify";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Loader from "../utils/Loader";
+import CultStoreNavbar from "../Components/CultStoreNavbar/CultStoreNavbar";
+import Footer from "../utils/Footer";
 
 function OneProductPage() {
   const sdata = useSelector((state) => state?.single?.singleData);
@@ -27,6 +29,7 @@ function OneProductPage() {
     <Loader />
   ) : (
     <>
+      <CultStoreNavbar />
       <Grid
         gridTemplateColumns={{
           base: "1fr",
@@ -157,6 +160,8 @@ function OneProductPage() {
           <ProductDetails />
         </VStack>
       </Grid>
+      <br />
+      <Footer />
     </>
   );
 }

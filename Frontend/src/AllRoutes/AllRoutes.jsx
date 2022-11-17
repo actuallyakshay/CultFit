@@ -17,6 +17,10 @@ import Wishlist from "../Organism/WishList&Cart/Wishlist";
 import Cart from "../Organism/WishList&Cart/Cart";
 import SignupPage from "../Components/LoginPart/SignupPage";
 import LoginPage from "../Components/LoginPart/LoginPage";
+import Trash from "../Admin/Trash";
+import AllProducts from "../Admin/AllProducts";
+import AllUsers from "../Admin/AllUsers";
+import FirstPage from "../Admin/FirstPage";
 
 function AllRoutes() {
   return (
@@ -38,6 +42,10 @@ function AllRoutes() {
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/signup" element={<SignupPage />}></Route>
+        <Route path="/trash" element={<Trash />}></Route>
+        <Route path="/dashboard" element={<FirstPage />}></Route>
+        <Route path="/allproducts" element={<AllProducts />}></Route>
+        <Route path="/users" element={<AllUsers />}></Route>
       </Routes>
     </>
   );

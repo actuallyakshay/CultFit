@@ -13,12 +13,34 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { BsShieldLockFill } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getLOGIN, getLOGINFUNC } from "../../Redux/Auth/auth.actions";
+import { getLOACTION, getPin } from "../../Redux/PinCode/pincode.actions";
 
 function LoginPage() {
-    
+  const [loginform, setLoginform] = useState({
+    email: "",
+    password: "",
+  });
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const isAuth = useSelector((state) => state?.auth?.data?.isAuth);
+  const authLoading = useSelector((state) => state?.auth?.authLoading);
+
+  const handleLOGIN = (e) => {
+    setLoginform({ ...loginform, [e.target.name]: e.target.value });
+  };
+
+  const handleGETLOGIN = (loginform) => {
+    dispatch(getLOGINFUNC(loginform));
+    dispatch(getLOACTION(loginform.email));
+  };
+
   return (
     <Box position={"relative"}>
       <Box position={"absolute"} w="fit-content" opacity={0.7}>
@@ -37,7 +59,7 @@ function LoginPage() {
         py="3"
         px="10"
       >
-        <Box>
+        <Box onClick={() => navigate("/")} _hover={{ cursor: "pointer" }}>
           <Image
             src="https://cdn-images.cure.fit/www-curefit-com/image/upload/c_fill,w_135,ar_3.87,q_auto:eco,dpr_2,f_auto,fl_progressive//image/test/brand-logo/cultsport-black-logo.svg"
             w="65%"
@@ -45,7 +67,11 @@ function LoginPage() {
         </Box>
         <HStack>
           <BsShieldLockFill color="green" fontSize={"30px"} />
-          <Text fontWeight={"500"} color="blackAlpha.600">
+          <Text
+            fontWeight={"500"}
+            color="blackAlpha.600"
+            display={{ base: "none", md: "flex" }}
+          >
             1 0 0 % {"  "} S E C U R E
           </Text>
         </HStack>
@@ -74,6 +100,8 @@ function LoginPage() {
                 fontWeight={"600"}
                 letterSpacing="1px"
                 type="text"
+                value={loginform.email}
+                onChange={(e) => handleLOGIN(e)}
                 outline="none"
                 flex="1"
                 border={"none"}
@@ -89,7 +117,7 @@ function LoginPage() {
                   fontWeight: "400",
                 }}
                 onFocus={{ border: "0", borderBottom: "1px solid #ff3e6c" }}
-                name="name"
+                name="email"
               />
             </FormControl>
             <FormControl id="password" isRequired>
@@ -98,6 +126,8 @@ function LoginPage() {
                 fontWeight={"600"}
                 letterSpacing="1px"
                 type="text"
+                value={loginform.password}
+                onChange={(e) => handleLOGIN(e)}
                 outline="none"
                 flex="1"
                 border={"none"}
@@ -114,23 +144,27 @@ function LoginPage() {
                   fontWeight: "400",
                 }}
                 onFocus={{ border: "0", borderBottom: "1px solid #ff3e6c" }}
-                name="name"
+                name="password"
               />
             </FormControl>
             <Stack spacing={6}>
-              <Button
-                mt="3"
-                bgColor="rgba(255, 49, 109, 0.7)"
-                w="full"
-                size="md"
-                _hover={{ bgColor: "rgba(255, 49, 109, 0.7)" }}
-                letterSpacing={"1.3px"}
-                fontWeight="500"
-                fontSize="16px"
-                color="white"
-              >
-                Login
-              </Button>
+              <Link to={isAuth ? "/" : ""}>
+                <Button
+                  isLoading={authLoading ? "u" : ""}
+                  mt="3"
+                  bgColor="rgba(255, 49, 109, 0.7)"
+                  w="full"
+                  size="md"
+                  _hover={{ bgColor: "rgba(255, 49, 109, 0.7)" }}
+                  letterSpacing={"1.3px"}
+                  fontWeight="500"
+                  fontSize="16px"
+                  color="white"
+                  onClick={() => handleGETLOGIN(loginform)}
+                >
+                  Login
+                </Button>
+              </Link>
             </Stack>
           </Stack>
         </Flex>

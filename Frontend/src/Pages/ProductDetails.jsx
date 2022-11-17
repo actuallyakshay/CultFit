@@ -11,6 +11,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
+import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,16 +20,10 @@ import { getPin } from "../Redux/PinCode/pincode.actions";
 function ProductDetails() {
   const [pincode, setPincode] = useState("");
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
-  const foundPinCode = useSelector((state) => state.pin.pinData);
-  const pinLoading = useSelector((state) => state.pin.pinLoading);
   const handlePincode = (e) => {
     setPincode(e.target.value);
-  };
-
-  const handleGetPin = (pincode) => {
-    console.log({ pincode });
-    dispatch(getPin(pincode));
   };
 
   const toast = useToast();
@@ -88,7 +83,7 @@ function ProductDetails() {
         />
         <Button
           //   isLoading={foundPinCode[0]?.Status !== "Error" ? ""}
-          isLoading={pinLoading ? "fre" : ""}
+          isLoading={loading ? "fre" : ""}
           loadingText="Checking ..."
           colorScheme="teal"
           variant="outline"
@@ -96,18 +91,31 @@ function ProductDetails() {
           border="none"
           color="blackAlpha.700"
           fontSize="14px"
+          _hover={{ bg: "white" }}
           onClick={() => {
-            handleGetPin(pincode);
-            setTimeout(() => {
-              toast({
-                status: `${
-                  foundPinCode[0]?.Status == "Success" ? "success" : "error"
-                }`,
-                title: `toast`,
-                position: "top",
-                isClosable: true,
-              });
-            }, 2000);
+            setLoading(true);
+            axios
+              .get(`https://api.postalpincode.in/pincode/${pincode}`)
+              .then((res) => {
+                console.log(res.data);
+                res.data[0].Message === "No records found"
+                  ? toast({
+                      title: `We don't deliver at this loaction`,
+                      status: "warning",
+                      position: "top",
+                      isClosable: true,
+                      duration: 2000,
+                    })
+                  : toast({
+                      title: `Product is available at ${res?.data[0]?.PostOffice[0]?.District}`,
+                      status: "success",
+                      position: "top",
+                      isClosable: true,
+                      duration: 2000,
+                    });
+                setLoading(false);
+              })
+              .catch((err) => console.log(err));
           }}
         >
           CHECK
