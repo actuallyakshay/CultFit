@@ -8,22 +8,38 @@ import {
   VStack,
   Text,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import CommanSizeButtons from "./CommanSizeButtons";
 import ProductDetails from "./ProductDetails";
 import ReactImageMagnify from "react-image-magnify";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "../utils/Loader";
 import CultStoreNavbar from "../Components/CultStoreNavbar/CultStoreNavbar";
 import Footer from "../utils/Footer";
+import { postCart } from "../Redux/Cart/cart.actions";
 
 function OneProductPage() {
   const sdata = useSelector((state) => state?.single?.singleData);
   const sLoading = useSelector((state) => state?.single?.singleLoading);
   const route = useSelector((state) => state?.button?.route);
+  const isAuth = useSelector((state) => state?.auth?.data?.isAuth);
+  const token = useSelector((state) => state?.auth?.data?.token);
+  const dispatch = useDispatch()
+   const toast = useToast();
 
-  console.log({ route });
+  const handleaddCart = (_id, quantity, token) => {
+    dispatch(postCart(_id, quantity, token));
+    toast({
+      title: `Hey ! Hope you are doing well 💛 `,
+      description: "Product Added Successfully😊",
+      status: "success",
+      position: "top",
+      isClosable: true,
+      duration: 2000,
+    });
+  };
 
   return sLoading ? (
     <Loader />
@@ -49,10 +65,10 @@ function OneProductPage() {
               smallImage: {
                 alt: "Wristwatch by Ted Baker London",
                 isFluidWidth: true,
-                src: `${sdata.image}`,
+                src: `${sdata?.image}`,
               },
               largeImage: {
-                src: `${sdata.image}`,
+                src: `${sdata?.image}`,
                 width: 1400,
                 height: 1800,
               },
@@ -70,7 +86,7 @@ function OneProductPage() {
             fontSize="16px"
             fontWeight="400"
           >
-            {sdata.brand}
+            {sdata?.brand}
           </Heading>
 
           <Heading
@@ -79,7 +95,7 @@ function OneProductPage() {
             fontWeight="600"
             fontFamily="❤️/"
           >
-            {sdata.title}
+            {sdata?.title}
           </Heading>
           <HStack gap="3">
             <Heading
@@ -88,7 +104,7 @@ function OneProductPage() {
               letterSpacing=".2px"
               fontWeight="500"
             >
-              ₹ {sdata.price1}
+              ₹ {sdata?.price1}
             </Heading>
             <Heading
               color="rgba(0, 0, 0, 0.6)"
@@ -98,7 +114,7 @@ function OneProductPage() {
               as="s"
             >
               {" "}
-              ₹ {sdata.price2}
+              ₹ {sdata?.price2}
             </Heading>
             <Heading
               fontSize={"16px"}
@@ -139,6 +155,18 @@ function OneProductPage() {
               _hover={{
                 background: "#ff385a",
                 bgImage: "linear-gradient(265deg,#fd2f6e,#f7433c)",
+              }}
+              onClick={() => {
+                !isAuth
+                  ? toast({
+                      duration: 2000,
+                      title: `hmm! Want to add in Cart 😒 ?`,
+                      description: "You have to LOGIN first 😊",
+                      position: "top",
+                      status: "error",
+                      isClosable: true,
+                    })
+                  : handleaddCart(sdata._id, 1, token);
               }}
             >
               Add to Cart

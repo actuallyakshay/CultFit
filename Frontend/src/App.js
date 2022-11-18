@@ -6,14 +6,14 @@ import AllRoutes from "./AllRoutes/AllRoutes";
 import CultStoreNavbar from "./Components/CultStoreNavbar/CultStoreNavbar";
 import LoginPage from "./Components/LoginPart/LoginPage";
 import SignupPage from "./Components/LoginPart/SignupPage";
+import UserProfile from "./Components/LoginPart/UserProfile";
 import Footer from "./utils/Footer";
 
 function App() {
   return (
     <div>
       <AllRoutes />
-      {/* <SignupPage /> */}
-      {/* <LoginPage /> */}
+      {/* <UserProfile /> */}
     </div>
   );
 }

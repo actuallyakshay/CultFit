@@ -82,10 +82,10 @@ function Mens() {
   return isLoading ? (
     <Loader />
   ) : (
-      <>
-        <CultStoreNavbar />
+    <>
+      <CultStoreNavbar />
       <Grid
-        gridTemplateColumns={"repeat(2,1fr)"}
+        gridTemplateColumns={["1fr", "1fr", "repeat(2,1fr)", "repeat(2,1fr)"]}
         // border="2px solid red"
         w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
         m="auto"
@@ -132,7 +132,16 @@ function Mens() {
             />
           )}
         </Flex>
-        <Flex justifyContent={"space-between"} alignItems="center" gap="2">
+        <Flex
+          justifyContent={[
+            "flex-start",
+            "flex-start",
+            "space-between",
+            "space-between",
+          ]}
+          alignItems="center"
+          gap={["1", "1", "2", "2"]}
+        >
           <FilterByPriceOff hanldeOff={hanldeOff} />
           <SortByDiscount handleDiscountSort={handleDiscountSort} />
           <SortByPrice handleLH={handleLH} handleHL={handleHL} />
@@ -160,8 +169,8 @@ function Mens() {
         {data?.map((el) => {
           return <SingleProduct {...el} key={el._id} />;
         })}
-        </Grid>
-        <Footer />
+      </Grid>
+      <Footer />
     </>
   );
 }

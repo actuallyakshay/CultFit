@@ -6,11 +6,14 @@ import {
   HStack,
   Image,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdOutlineLocalOffer } from "react-icons/md";
+import { Link } from "react-router-dom";
 
-function PlaceOrderCompo() {
+function PlaceOrderCompo({ sum, act }) {
+  const toast = useToast();
   return (
     <>
       <Heading
@@ -80,7 +83,7 @@ function PlaceOrderCompo() {
         color="black"
       >
         <Text>Total MRP</Text>
-        <Text>1899</Text>
+        <Text>{act}/-</Text>
       </Flex>
       <Flex
         justifyContent="space-between"
@@ -90,8 +93,8 @@ function PlaceOrderCompo() {
         fontWeight="300"
         color="black"
       >
-        <Text>Total MRP</Text>
-        <Text>1899</Text>
+        <Text>Price after Discount</Text>
+        <Text>{sum}/-</Text>
       </Flex>
       <Flex
         justifyContent="space-between"
@@ -101,19 +104,8 @@ function PlaceOrderCompo() {
         fontWeight="300"
         color="black"
       >
-        <Text>Total MRP</Text>
-        <Text>1899</Text>
-      </Flex>
-      <Flex
-        justifyContent="space-between"
-        w="full"
-        letterSpacing={".7px"}
-        fontSize={"14px"}
-        fontWeight="300"
-        color="black"
-      >
-        <Text>Total MRP</Text>
-        <Text>1899</Text>
+        <Text>Discount</Text>
+        <Text>{sum == 0 ? "0" : "35"}%</Text>
       </Flex>
       <Divider />
       <Flex
@@ -126,19 +118,40 @@ function PlaceOrderCompo() {
         color="black"
       >
         <Text>Total Amount</Text>
-        <Text>1899</Text>
+        <Text>{sum} /-</Text>
       </Flex>
-      <Button
-        borderRadius={"0    "}
-        bgColor=" #ff3e6c"
-        _hover={{ bgColor: "#ff3e6c" }}
-        fontSize={"15px"}
-        fontWeight="500"
-        w="full"
-        color="white"
-      >
-        PLACE ORDER
-      </Button>
+      <Link to={sum != 0 ? "/" : ""} w="full">
+        <Button
+          borderRadius={"0    "}
+          bgColor=" #ff3e6c"
+          _hover={{ bgColor: "#ff3e6c" }}
+          fontSize={"15px"}
+          fontWeight="500"
+          w="full"
+          color="white"
+          onClick={() => {
+            sum != 0
+              ? toast({
+                  title: `Hey !😍 `,
+                  description: "Order placed Successfully 😍",
+                  status: "success",
+                  position: "top",
+                  isClosable: true,
+                  duration: 2000,
+                })
+              : toast({
+                  title: `Hey ! `,
+                  description: "Ur cart is Empty",
+                  status: "success",
+                  position: "top",
+                  isClosable: true,
+                  duration: 2000,
+                });
+          }}
+        >
+          PLACE ORDER
+        </Button>
+      </Link>
     </>
   );
 }

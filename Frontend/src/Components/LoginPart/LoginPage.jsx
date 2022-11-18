@@ -125,7 +125,7 @@ function LoginPage() {
               <Input
                 fontWeight={"600"}
                 letterSpacing="1px"
-                type="text"
+                type="password"
                 value={loginform.password}
                 onChange={(e) => handleLOGIN(e)}
                 outline="none"

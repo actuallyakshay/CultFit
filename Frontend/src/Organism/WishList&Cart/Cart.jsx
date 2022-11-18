@@ -54,6 +54,8 @@ function Cart() {
   const toast = useToast();
   const navigate = useNavigate();
   const [cartLoading, setCartLoading] = useState(false);
+  const [sum, setSum] = useState(0);
+  const [act, setAct] = useState(0);
 
   useEffect(() => {
     getCart(token);
@@ -70,11 +72,22 @@ function Cart() {
       .then((res) => {
         setCartData(res.data);
         setCartLoading(false);
+        setSum(
+          res?.data.reduce((acc, el) => {
+            return (acc = acc + Number(el?.product?.price1));
+          }, 0)
+        );
+        setAct(
+          res?.data.reduce((acc, el) => {
+            return (acc = acc + Number(el?.product?.price2));
+          }, 0)
+        );
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
 
   return cartLoading ? (
     <Loader />
@@ -468,7 +481,8 @@ function Cart() {
                               .then((res) => {
                                 toast({
                                   title: `Hey ! ${elem?.user?.name} 😥 `,
-                                  description: "Products has been  Deleted !! 💔",
+                                  description:
+                                    "Products has been  Deleted !! 💔",
                                   status: "error",
                                   position: "top",
                                   isClosable: true,
@@ -498,7 +512,7 @@ function Cart() {
           position="sticky"
           top="14%"
         >
-          <PlaceOrderCompo />
+          <PlaceOrderCompo sum={sum} act ={act}  />
         </VStack>
       </Grid>
       <br />

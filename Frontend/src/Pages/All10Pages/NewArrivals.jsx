@@ -82,10 +82,10 @@ function NewArrivals() {
   return isLoading ? (
     <Loader />
   ) : (
-      <>
-        <CultStoreNavbar />
+    <>
+      <CultStoreNavbar />
       <Grid
-        gridTemplateColumns={"repeat(2,1fr)"}
+        gridTemplateColumns={["1fr", "1fr", "repeat(2,1fr)", "repeat(2,1fr)"]}
         // border="2px solid red"
         w={{ base: "96%", sm: "95%", md: "90%", lg: "85%" }}
         m="auto"
@@ -165,8 +165,8 @@ function NewArrivals() {
         {data?.map((el) => {
           return <SingleProduct {...el} key={el._id} />;
         })}
-        </Grid>
-        <Footer />
+      </Grid>
+      <Footer />
     </>
   );
 }

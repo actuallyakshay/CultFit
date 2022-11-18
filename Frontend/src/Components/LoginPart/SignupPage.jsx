@@ -171,7 +171,7 @@ function SignupPage() {
                   onChange={(e) => handleSignupForm(e)}
                   fontWeight={"600"}
                   letterSpacing="1px"
-                  type="text"
+                  type="password"
                   outline="none"
                   flex="1"
                   border={"none"}

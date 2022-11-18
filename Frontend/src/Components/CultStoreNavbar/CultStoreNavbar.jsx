@@ -67,7 +67,7 @@ export default function CultStoreNavbar() {
   const isAuth = useSelector((state) => state?.auth?.data?.isAuth);
   const dispatch = useDispatch();
   const pinCode = useSelector((state) => state?.pin?.pinCode);
-  const location = localStorage.getItem("location") || "";
+  const location = localStorage.getItem("location");
   const [admin, setAdmin] = useState({
     email: "",
     password: "",
@@ -175,7 +175,7 @@ export default function CultStoreNavbar() {
             </Flex>
           </Flex>
           <HStack flex={{ base: 1, md: 0 }} justify={"flex-end"} spacing={1}>
-            <Tooltip hasArrow label={location} bg="gray.300" color="black">
+            <Tooltip label={location} bg="gray.300" color="black">
               <Button bg="none" display={isAuth ? "flex" : "none"}>
                 <GoLocation />
               </Button>
@@ -192,7 +192,10 @@ export default function CultStoreNavbar() {
                   _expanded={{ bg: "none" }}
                   _focus={{ boxShadow: "none" }}
                 >
-                  <Avatar size="sm" />
+                  <Avatar
+                    src="https://avatars.githubusercontent.com/u/107462720?v=4"
+                    size="sm"
+                  />
                 </MenuButton>
                 <MenuList>
                   <MenuItem _hover={{ bg: "white" }}>
