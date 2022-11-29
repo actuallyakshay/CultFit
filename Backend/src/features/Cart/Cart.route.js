@@ -47,7 +47,6 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  // console.log(req.body)
   try {
     let product = await Product.findOne({ _id: req.body.product });
 
