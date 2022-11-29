@@ -111,6 +111,7 @@ function SingleProduct({
               letterSpacing=".8px"
               fontWeight="500"
               size="md"
+              display={{ base: "none", md: "flex" }}
             >
               ADD TO CART
             </Heading>
@@ -181,7 +182,8 @@ function SingleProduct({
                       : toast({
                           duration: 2000,
                           title: `Hey ! Hope you are doing well  💛 `,
-                          description: "This item has been added to Wishlist 💛",
+                          description:
+                            "This item has been added to Wishlist 💛",
                           position: "top",
                           status: "success",
                           isClosable: true,
@@ -239,6 +241,7 @@ function SingleProduct({
             letterSpacing=".2px"
             fontWeight="400"
             as="s"
+            display={{base :"none" , md:"flex"}}
           >
             {" "}
             ₹ {price2}
