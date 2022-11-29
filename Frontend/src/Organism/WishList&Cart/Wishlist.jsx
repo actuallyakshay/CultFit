@@ -37,7 +37,7 @@ function Wishlist() {
   });
   const getWishlist = (token) => {
     axios
-      .get(`https://vast-pink-reindeer-belt.cyclic.app/wishlist`, {
+      .get(`${process.env.REACT_APP_URL}/wishlist`, {
         headers: {
           token: token,
         },
@@ -154,7 +154,7 @@ function Wishlist() {
                     });
                     axios
                       .delete(
-                        `https://vast-pink-reindeer-belt.cyclic.app/wishlist/${el.product._id}`,
+                        `${process.env.REACT_APP_URL}/wishlist/${el.product._id}`,
                         {
                           headers: {
                             token: token,

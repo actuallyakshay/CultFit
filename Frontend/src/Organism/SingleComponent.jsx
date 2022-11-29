@@ -158,7 +158,7 @@ function SingleProduct({
                 })
               : axios
                   .post(
-                    `https://vast-pink-reindeer-belt.cyclic.app/wishlist`,
+                    `${process.env.REACT_APP_URL}/wishlist`,
                     {
                       product: _id,
                     },

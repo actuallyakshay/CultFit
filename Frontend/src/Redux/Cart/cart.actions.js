@@ -8,7 +8,7 @@ import {
 export const postCart = (_id, quantity, token) => (dispatch) => {
   axios
     .post(
-      `https://vast-pink-reindeer-belt.cyclic.app/cart`,
+      `${process.env.REACT_APP_URL}/cart`,
       {
         product: _id,
         quantity: quantity,
@@ -25,7 +25,7 @@ export const postCart = (_id, quantity, token) => (dispatch) => {
 
 export const getCart = (token) => {
   axios
-    .get(`https://vast-pink-reindeer-belt.cyclic.app/cart`, {
+    .get(`${process.env.REACT_APP_URL}/cart`, {
       headers: {
         token: token,
       },

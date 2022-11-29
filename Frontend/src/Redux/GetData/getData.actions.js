@@ -11,7 +11,7 @@ export const getData =
     dispatch({ type: GETDATA_LOADING });
     axios
       .get(
-        `https://vast-pink-reindeer-belt.cyclic.app/products?category=${category}&q=${q}&price=${price}&disSort=${disSort}&off=${off}&page=${page}&limit=24`
+        `${process.env.REACT_APP_URL}/products?category=${category}&q=${q}&price=${price}&disSort=${disSort}&off=${off}&page=${page}&limit=24`
       )
       .then((res) => dispatch({ type: GETDATA_SUCCESS, payload: res.data }))
       .catch((error) => dispatch({ type: GETDATA_ERROR }));

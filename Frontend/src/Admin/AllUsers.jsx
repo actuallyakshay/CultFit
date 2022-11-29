@@ -30,7 +30,7 @@ function AllUsers() {
 
   const getUsers = () => {
     setload(true);
-    axios.get(`https://vast-pink-reindeer-belt.cyclic.app/user`).then((res) => {
+    axios.get(`${process.env.REACT_APP_URL}/user`).then((res) => {
       setUsers(res.data);
       setload(false);
     });

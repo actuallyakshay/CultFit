@@ -240,7 +240,7 @@ function SignupPage() {
               onClick={() => {
                 console.log(signupform);
                 axios
-                  .post(`https://vast-pink-reindeer-belt.cyclic.app/user/signup`, signupform)
+                  .post(`${process.env.REACT_APP_URL}/user/signup`, signupform)
                   .then((res) => {
                     res.data == "Acc created"
                       ? toast({

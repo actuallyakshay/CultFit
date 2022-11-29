@@ -37,7 +37,7 @@ function AllProducts() {
   const getalldata = () => {
     setLoad(true);
     axios
-      .get(`https://vast-pink-reindeer-belt.cyclic.app/products?page=${page}&limit=50`)
+      .get(`${process.env.REACT_APP_URL}/products?page=${page}&limit=50`)
       .then((res) => {
         setLoad(false);
         setProd(res.data);
@@ -84,7 +84,7 @@ function AllProducts() {
                     <Button
                       onClick={() => {
                         axios
-                          .put(`https://vast-pink-reindeer-belt.cyclic.app/products/${el._id}`, el)
+                          .put(`${process.env.REACT_APP_URL}/products/${el._id}`, el)
                           .then((res) => {
                             console.log(res.data);
                             getalldata();
