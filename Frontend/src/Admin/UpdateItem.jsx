@@ -42,7 +42,7 @@ export default function UpdateProduct({ id, getalldata }) {
   };
 
   const handleUpdate = (update, id) => {
-    axios.patch(`http://localhost:8080/products/${id}`, update).then((res) => {
+    axios.patch(`https://vast-pink-reindeer-belt.cyclic.app/products/${id}`, update).then((res) => {
       console.log(res.data);
       getalldata();
       toast({

@@ -41,10 +41,11 @@ function Accessories() {
   const [height, setHeight] = useState(66);
   const INPUT = useSelector((state) => state.inputData.inputData);
   const inputLoading = useSelector((state) => state.inputData.inputLoading);
+  const [page, setPage] = useState(1);
   useEffect(() => {
-    dispatch(getData("accessories"));
+    dispatch(getData("accessories",page));
     dispatch(getButton("accessories"));
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     if (value == "") {
@@ -55,28 +56,28 @@ function Accessories() {
   }, [INPUT]);
 
   const handleFilter = (el) => {
-    dispatch(getData("accessories", el));
+    dispatch(getData("accessories", page, el));
   };
 
   const handleLH = (asc) => {
-    dispatch(getData("accessories", "", asc));
+    dispatch(getData("accessories", page, "", asc));
   };
 
   const handleHL = (desc) => {
-    dispatch(getData("accessories", "", desc));
+    dispatch(getData("accessories", page, "", desc));
   };
 
   const handleDiscountSort = (asc) => {
-    dispatch(getData("accessories", "", "", asc));
+    dispatch(getData("accessories", page, "", "", asc));
   };
 
   const hanldeOff = (off) => {
-    dispatch(getData("accessories", "", "", "", off));
+    dispatch(getData("accessories", page, "", "", "", off));
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    dispatch(getInputData("accessories", value));
+    dispatch(getInputData("accessories", page, value));
   };
 
   return isLoading ? (
@@ -168,6 +169,40 @@ function Accessories() {
           })}
         </Grid>
       </Box>
+      <br />
+      <br />
+      <HStack w="full" justifyContent={"center"}>
+        <Button
+          bg="rgb(255, 50, 120)"
+          color="white"
+          letterSpacing={"2px"}
+          borderRadius={"0px"}
+          _hover={{ bg: "rgb(255, 50, 120)", color: "white" }}
+          onClick={() => setPage(page - 1)}
+          disabled={page == 1 ? true : false}
+        >
+          Prev
+        </Button>
+        <Button
+          border="1px dashed rgb(255, 50, 120)"
+          bg="none"
+          borderRadius={"0px"}
+          fontSize="20px"
+          color="rgb(255, 50, 120)"
+        >
+          {page}
+        </Button>
+        <Button
+          bg="rgb(255, 50, 120)"
+          color="white"
+          letterSpacing={"2px"}
+          borderRadius={"0px"}
+          _hover={{ bg: "rgb(255, 50, 120)", color: "white" }}
+          onClick={() => setPage(page + 1)}
+        >
+          Next
+        </Button>
+      </HStack>
       <br />
       <Footer />
     </>

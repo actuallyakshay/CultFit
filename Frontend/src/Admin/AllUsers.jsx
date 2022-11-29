@@ -30,7 +30,7 @@ function AllUsers() {
 
   const getUsers = () => {
     setload(true);
-    axios.get(`http://localhost:8080/user`).then((res) => {
+    axios.get(`https://vast-pink-reindeer-belt.cyclic.app/user`).then((res) => {
       setUsers(res.data);
       setload(false);
     });

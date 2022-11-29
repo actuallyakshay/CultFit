@@ -29,7 +29,7 @@ export default function ViewProduct({ id }) {
 
   const getViewProd = (id) => {
     axios
-      .get(`http://localhost:8080/products/${id}`)
+      .get(`https://vast-pink-reindeer-belt.cyclic.app/products/${id}`)
       .then((res) => setOne(res.data));
   };
 

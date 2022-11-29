@@ -158,7 +158,7 @@ function SingleProduct({
                 })
               : axios
                   .post(
-                    `http://localhost:8080/wishlist`,
+                    `https://vast-pink-reindeer-belt.cyclic.app/wishlist`,
                     {
                       product: _id,
                     },
@@ -271,3 +271,6 @@ const StyledVStack = styled(VStack)`
     transform: translateY(0);
   }
 `;
+
+
+

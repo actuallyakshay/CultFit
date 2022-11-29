@@ -32,7 +32,7 @@ function Trash() {
 
   const getTrash = () => {
     setLoad(true);
-    axios.get(`http://localhost:8080/trash?limit=50`).then((res) => {
+    axios.get(`https://vast-pink-reindeer-belt.cyclic.app/trash?limit=50`).then((res) => {
       setLoad(false);
       setTrash(res.data);
     });
@@ -67,7 +67,7 @@ function Trash() {
                     <Button
                       onClick={() => {
                         axios
-                          .post(`http://localhost:8080/trash`, el)
+                          .post(`https://vast-pink-reindeer-belt.cyclic.app/trash`, el)
                           .then((res) => {
                             console.log(res.data);
                             getTrash();

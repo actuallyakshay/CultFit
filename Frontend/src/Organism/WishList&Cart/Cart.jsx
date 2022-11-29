@@ -64,7 +64,7 @@ function Cart() {
   const getCart = (token) => {
     setCartLoading(true);
     axios
-      .get(`http://localhost:8080/cart`, {
+      .get(`https://vast-pink-reindeer-belt.cyclic.app/cart`, {
         headers: {
           token: token,
         },
@@ -373,7 +373,7 @@ function Cart() {
                                 onClick={() => {
                                   axios
                                     .patch(
-                                      `http://localhost:8080/cart`,
+                                      `https://vast-pink-reindeer-belt.cyclic.app/cart`,
                                       {
                                         product: elem?.product?._id,
                                         quantity: -1,
@@ -417,7 +417,7 @@ function Cart() {
                                 onClick={() => {
                                   axios
                                     .patch(
-                                      `http://localhost:8080/cart`,
+                                      `https://vast-pink-reindeer-belt.cyclic.app/cart`,
                                       {
                                         product: elem?.product?._id,
                                         quantity: 1,
@@ -471,7 +471,7 @@ function Cart() {
                           onClick={() => {
                             axios
                               .delete(
-                                `http://localhost:8080/cart/${elem?.product?._id}`,
+                                `https://vast-pink-reindeer-belt.cyclic.app/cart/${elem?.product?._id}`,
                                 {
                                   headers: {
                                     token: token,

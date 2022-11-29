@@ -4,7 +4,7 @@ import { AUTH_ERROR, AUTH_LOADING, AUTH_LOGOUT, AUTH_SUCCESS } from "./auth.type
 export const getLOGINFUNC = (form) => (dispatch) => {
   dispatch({ type: AUTH_LOADING });
   axios
-    .post(`http://localhost:8080/user/login`, form)
+    .post(`https://vast-pink-reindeer-belt.cyclic.app/user/login`, form)
     .then((res) => dispatch({ type: AUTH_SUCCESS, payload: res.data.token }))
     .catch((err) => dispatch({ type: AUTH_ERROR }));
 };
