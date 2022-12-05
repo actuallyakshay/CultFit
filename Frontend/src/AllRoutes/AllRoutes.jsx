@@ -21,31 +21,144 @@ import Trash from "../Admin/Trash";
 import AllProducts from "../Admin/AllProducts";
 import AllUsers from "../Admin/AllUsers";
 import FirstPage from "../Admin/FirstPage";
+import PrivateRoute from "./PrivateRoute";
 
 function AllRoutes() {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-        <Route path="/mens" element={<Mens />}></Route>
-        <Route path="/womens" element={<WoMens />}></Route>
-        <Route path="/topSellings" element={<BestSellers />}></Route>
-        <Route path="/topArrivals" element={<NewArrivals />}></Route>
-        <Route path="/footwears" element={<Footwear />}></Route>
-        <Route path="/cardio" element={<Cardio />}></Route>
-        <Route path="/cycles" element={<Cycles />}></Route>
-        <Route path="/accessories" element={<Accessories />}></Route>
-        <Route path="/supplements" element={<Supplements />}></Route>
-        <Route path="/equipments" element={<Equipments />}></Route>
-        <Route path="/:router/:id" element={<OneProductPage />}></Route>
-        <Route path="/wishlist" element={<Wishlist />}></Route>
+        <Route
+          path="/mens"
+          element={
+            <PrivateRoute>
+              <Mens />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/womens"
+          element={
+            <PrivateRoute>
+              <WoMens />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/topSellings"
+          element={
+            <PrivateRoute>
+              <BestSellers />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/topArrivals"
+          element={
+            <PrivateRoute>
+              <NewArrivals />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/footwears"
+          element={
+            <PrivateRoute>
+              <Footwear />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/cardio"
+          element={
+            <PrivateRoute>
+              <Cardio />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/cycles"
+          element={
+            <PrivateRoute>
+              <Cycles />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/accessories"
+          element={
+            <PrivateRoute>
+              <Accessories />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/supplements"
+          element={
+            <PrivateRoute>
+              <Supplements />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/equipments"
+          element={
+            <PrivateRoute>
+              <Equipments />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/:router/:id"
+          element={
+            <PrivateRoute>
+              <OneProductPage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/wishlist"
+          element={
+            <PrivateRoute>
+              <Wishlist />
+            </PrivateRoute>
+          }
+        ></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/signup" element={<SignupPage />}></Route>
-        <Route path="/trash" element={<Trash />}></Route>
-        <Route path="/dashboard" element={<FirstPage />}></Route>
-        <Route path="/allproducts" element={<AllProducts />}></Route>
-        <Route path="/users" element={<AllUsers />}></Route>
+        <Route
+          path="/trash"
+          element={
+            <PrivateRoute>
+              <Trash />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <FirstPage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/allproducts"
+          element={
+            <PrivateRoute>
+              <AllProducts />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/users"
+          element={
+            <PrivateRoute>
+              <AllUsers />
+            </PrivateRoute>
+          }
+        ></Route>
       </Routes>
     </>
   );

@@ -238,7 +238,6 @@ function SignupPage() {
               color="white"
               leftIcon={<AiOutlineMail fontSize={"20px"} />}
               onClick={() => {
-                console.log(signupform);
                 axios
                   .post(`${process.env.REACT_APP_URL}/user/signup`, signupform)
                   .then((res) => {

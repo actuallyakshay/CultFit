@@ -3,4 +3,4 @@
 /Frontend/build
 /Frontend/.netlify
 /Backend/node_modules
-/Backend/.env
+/Backend/.env/

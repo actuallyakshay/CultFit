@@ -119,7 +119,10 @@ export default function CultStoreNavbar() {
     axios
       .get(`https://api.postalpincode.in/pincode/${pinCode}`)
       .then((res) => {
-        localStorage.setItem("location", res?.data[0]?.PostOffice[0]?.District);
+        return localStorage.setItem(
+          "location",
+          res?.data[0]?.PostOffice[0]?.District
+        );
       })
       .catch((err) => console.log(err.message));
   };

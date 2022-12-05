@@ -16,7 +16,7 @@ import {
 import React, { useState } from "react";
 import { BsShieldLockFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { getLOGIN, getLOGINFUNC } from "../../Redux/Auth/auth.actions";
 import { getLOACTION, getPin } from "../../Redux/PinCode/pincode.actions";
 
@@ -30,6 +30,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const isAuth = useSelector((state) => state?.auth?.data?.isAuth);
+
   const authLoading = useSelector((state) => state?.auth?.authLoading);
 
   const handleLOGIN = (e) => {
@@ -40,6 +41,10 @@ function LoginPage() {
     dispatch(getLOGINFUNC(loginform));
     dispatch(getLOACTION(loginform.email));
   };
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Box position={"relative"}>
@@ -148,23 +153,21 @@ function LoginPage() {
               />
             </FormControl>
             <Stack spacing={6}>
-              <Link to={isAuth ? "/" : ""}>
-                <Button
-                  isLoading={authLoading ? "u" : ""}
-                  mt="3"
-                  bgColor="rgba(255, 49, 109, 0.7)"
-                  w="full"
-                  size="md"
-                  _hover={{ bgColor: "rgba(255, 49, 109, 0.7)" }}
-                  letterSpacing={"1.3px"}
-                  fontWeight="500"
-                  fontSize="16px"
-                  color="white"
-                  onClick={() => handleGETLOGIN(loginform)}
-                >
-                  Login
-                </Button>
-              </Link>
+              <Button
+                isLoading={authLoading ? "u" : ""}
+                mt="3"
+                bgColor="rgba(255, 49, 109, 0.7)"
+                w="full"
+                size="md"
+                _hover={{ bgColor: "rgba(255, 49, 109, 0.7)" }}
+                letterSpacing={"1.3px"}
+                fontWeight="500"
+                fontSize="16px"
+                color="white"
+                onClick={() => handleGETLOGIN(loginform)}
+              >
+                Login
+              </Button>
             </Stack>
           </Stack>
         </Flex>

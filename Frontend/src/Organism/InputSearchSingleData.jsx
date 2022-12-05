@@ -6,15 +6,37 @@ import {
   HStack,
   Image,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 import React from "react";
 import { BsFillHeartFill } from "react-icons/bs";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { CiDeliveryTruck } from "react-icons/ci";
+import { useDispatch, useSelector } from "react-redux";
+import { postCart } from "../Redux/Cart/cart.actions";
 
 function InputSearchSingleData({ input, value, height }) {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state?.auth?.data?.token);
+  const toast = useToast();
+  const isAuth = useSelector((state) => state?.auth?.data?.isAuth);
+
+
+  const handleaddCart = (_id, quantity, token) => {
+    dispatch(postCart(_id, quantity, token));
+    toast({
+      title: `Hey ! Hope you are doing well 💛 `,
+      description: "Product Added Successfully😊",
+      status: "success",
+      position: "top",
+      isClosable: true,
+      duration: 2000,
+    });
+  };
+
   return (
     <Flex
       flexDirection="column"
@@ -25,7 +47,7 @@ function InputSearchSingleData({ input, value, height }) {
       bgColor="white"
       top="101%"
       left="0"
-      w='full'
+      w="full"
       right="0"
       _hover={{ cursor: "pointer" }}
     >
@@ -114,12 +136,68 @@ function InputSearchSingleData({ input, value, height }) {
                 fontSize={"32px"}
                 color="rgb(255, 50, 120)"
                 _hover={{ color: "blue" }}
-                onClick={() => console.log("object")}
+                onClick={() => {
+                  !isAuth
+                    ? toast({
+                        duration: 2000,
+                        title: `hmm! Want to add in wishlist ? ❤️`,
+                        description: "You have to LOGIN first 🌚",
+                        position: "top",
+                        status: "error",
+                        isClosable: true,
+                      })
+                    : axios
+                        .post(
+                          `${process.env.REACT_APP_URL}/wishlist`,
+                          {
+                            product: elem._id,
+                          },
+                          {
+                            headers: {
+                              token: token,
+                            },
+                          }
+                        )
+                        .then((res) =>
+                          res.data === "Already present to wishlist"
+                            ? toast({
+                                duration: 2000,
+                                title: `Hey ! 💛 `,
+                                description:
+                                  " This item is already present in your wishlist 💔 ",
+                                position: "top",
+                                status: "error",
+                                isClosable: true,
+                              })
+                            : toast({
+                                duration: 2000,
+                                title: `Hey ! Hope you are doing well  💛 `,
+                                description:
+                                  "This item has been added to Wishlist 💛",
+                                position: "top",
+                                status: "success",
+                                isClosable: true,
+                              })
+                        )
+                        .catch((err) => console.log(err));
+                }}
               />
               <BsFillCartPlusFill
                 fontSize={"32px"}
                 color="rgb(255, 50, 120)"
                 _hover={{ color: "blue" }}
+                onClick={() => {
+                  !isAuth
+                    ? toast({
+                        duration: 2000,
+                        title: `hmm! Want to add in Cart 😒 ?`,
+                        description: "You have to LOGIN first 😊",
+                        position: "top",
+                        status: "error",
+                        isClosable: true,
+                      })
+                    : handleaddCart(elem._id, 1, token);
+                }}
               />
             </VStack>
           </Grid>

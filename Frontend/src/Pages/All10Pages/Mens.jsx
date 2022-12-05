@@ -28,6 +28,7 @@ import Loader from "../../utils/Loader";
 import LoaderInput from "../../utils/LoaderforInput";
 import CultStoreNavbar from "../../Components/CultStoreNavbar/CultStoreNavbar";
 import Footer from "../../utils/Footer";
+import { Navigate } from "react-router-dom";
 
 function Mens() {
   const data = useSelector((state) => state?.getData?.data);

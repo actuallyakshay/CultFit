@@ -15,8 +15,6 @@ function HomePage() {
   const dispatch = useDispatch();
   const [homeLoading, setHomeLoading] = useState(false);
 
-
-
   return homeLoading ? (
     <Loader />
   ) : (
